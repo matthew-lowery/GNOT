@@ -15,7 +15,7 @@ import torch.nn as nn
 
 
 from torch.optim.lr_scheduler import OneCycleLR, StepLR, LambdaLR
-from torch.utils.tensorboard import SummaryWriter
+# from torch.utils.tensorboard import SummaryWriter
 
 from args import get_args
 from data_utils import get_dataset, get_model, get_loss_func, collate_op, MIODataLoader
@@ -157,7 +157,7 @@ def train(model, loss_func, metric_func,
             # best_model=best_model_state_dict,
             optimizer_state=optimizer.state_dict()
         )
-        pickle.dump(result, open(os.path.join(model_save_path, result_name),'wb'))
+        # pickle.dump(result, open(os.path.join(model_save_path, result_name),'wb'))
     return result
 
 
@@ -224,7 +224,7 @@ if __name__ == "__main__":
     train_loader = MIODataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, drop_last=False)
     test_loader = MIODataLoader(test_dataset, batch_size=args.batch_size, shuffle=True, drop_last=False)
 
-    args.space_dim = int(re.search(r'\d', args.dataset).group())
+    args.space_dim = 3 #int(re.search(r'\d', args.dataset).group())
     args.normalizer =  train_dataset.y_normalizer.to(device) if train_dataset.y_normalizer is not None else None
 
     #### set random seeds

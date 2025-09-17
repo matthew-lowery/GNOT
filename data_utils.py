@@ -31,17 +31,22 @@ from models.mmgpt import GNOT
 
 
 def get_dataset(args):
-    if args.dataset == "ns2d":
-        train_path = './data/ns2d_1100_train.pkl'
-        test_path = './data/ns2d_1100_test.pkl'
-    elif args.dataset == "inductor2d":
-        train_path = "./data/inductor2d_1100_train.pkl"
-        test_path = "./data/inductor2d_1100_test.pkl"
+    # if args.dataset == "ns2d":
+    #     train_path = './data/ns2d_1100_train.pkl'
+    #     test_path = './data/ns2d_1100_test.pkl'
+    # elif args.dataset == "inductor2d":
+    #     train_path = "./data/inductor2d_1100_train.pkl"
+    #     test_path = "./data/inductor2d_1100_test.pkl"
 
-    elif args.dataset == "heat2d":
-        train_path = "./data/heat2d_1100_train.pkl"
-        test_path = "./data/heat2d_1100_test.pkl"
-
+    # elif args.dataset == "heat2d":
+    #     train_path = "./data/heat2d_1100_train.pkl"
+    #     test_path = "./data/heat2d_1100_test.pkl"
+    if args.dataset == 'diffr':
+        train_path = "./data/diffr_gnot_train.pkl"
+        test_path = "./data/diffr_gnot_test.pkl"
+    elif args.dataset == 'tri':
+        train_path = "./data/darcy_triangle_gnot_train.pkl"
+        test_path = "./data/darcy_triangle_gnot_test.pkl"
     else:
         raise NotImplementedError
 
@@ -315,6 +320,7 @@ class MIODataset(DGLDataset):
         self.u_p = []
         for i in range(len(self)):
             x, y, u_p, input_f = self.data_list[i]
+            input_f = (input_f,)
             g = dgl.DGLGraph()
             g.add_nodes(x.shape[0])
             g.ndata['x'] = torch.from_numpy(x).float()
@@ -410,8 +416,9 @@ class MIODataset(DGLDataset):
 
         print('Input features are normalized using unit transformer')
 
-
+    
     def __update_dataset_config(self):
+        print(self.inputs_f)
         self.config = {
             'input_dim': self.graphs[0].ndata['x'].shape[1],
             'theta_dim': self.u_p.shape[1],
