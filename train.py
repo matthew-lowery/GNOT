@@ -224,7 +224,8 @@ if __name__ == "__main__":
     train_loader = MIODataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, drop_last=False)
     test_loader = MIODataLoader(test_dataset, batch_size=args.batch_size, shuffle=True, drop_last=False)
 
-    args.space_dim = 3 #int(re.search(r'\d', args.dataset).group())
+    args.space_dim = int(re.search(r'\d', args.dataset).group())
+    print(args.space_dim)
     args.normalizer =  train_dataset.y_normalizer.to(device) if train_dataset.y_normalizer is not None else None
 
     #### set random seeds
