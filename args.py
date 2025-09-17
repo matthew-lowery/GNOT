@@ -11,8 +11,8 @@ import argparse
 def get_args():
     parser = argparse.ArgumentParser(description='GNOT for operator learning')
     parser.add_argument('--dataset',type=str,
-                        default='diffr',
-                        choices = ['heat2d','ns2d','inductor2d','heatsink3d','ns2d_time','darcy2d','diffr', 'tri'])
+                        default='diffr3d',
+                        choices = ['heat2d','ns2d','inductor2d','heatsink3d','ns2d_time','darcy2d','diffr3d', 'tri2d'])
 
 
     parser.add_argument('--component',type=str,

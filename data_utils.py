@@ -41,10 +41,10 @@ def get_dataset(args):
     # elif args.dataset == "heat2d":
     #     train_path = "./data/heat2d_1100_train.pkl"
     #     test_path = "./data/heat2d_1100_test.pkl"
-    if args.dataset == 'diffr':
+    if args.dataset == 'diffr3d':
         train_path = "./data/diffr_gnot_train.pkl"
         test_path = "./data/diffr_gnot_test.pkl"
-    elif args.dataset == 'tri':
+    elif args.dataset == 'tri2d':
         train_path = "./data/darcy_triangle_gnot_train.pkl"
         test_path = "./data/darcy_triangle_gnot_test.pkl"
     else:
@@ -418,7 +418,6 @@ class MIODataset(DGLDataset):
 
     
     def __update_dataset_config(self):
-        print(self.inputs_f)
         self.config = {
             'input_dim': self.graphs[0].ndata['x'].shape[1],
             'theta_dim': self.u_p.shape[1],
