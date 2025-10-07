@@ -1,5 +1,0 @@
-/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/requests/__init__.py:86: RequestsDependencyWarning: Unable to find acceptable character detection dependency (chardet or charset_normalizer).
-  warnings.warn(
-/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/dgl/heterograph.py:92: DGLWarning: Recommend creating graphs by `dgl.graph(data)` instead of `dgl.DGLGraph(data)`.
-  dgl_warning(
-slurmstepd: error: *** JOB 12311427 ON gpua071 CANCELLED AT 2025-09-18T15:26:52 ***
