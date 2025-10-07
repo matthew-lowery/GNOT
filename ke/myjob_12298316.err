@@ -1,0 +1,36 @@
+/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/requests/__init__.py:86: RequestsDependencyWarning: Unable to find acceptable character detection dependency (chardet or charset_normalizer).
+  warnings.warn(
+/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/dgl/heterograph.py:92: DGLWarning: Recommend creating graphs by `dgl.graph(data)` instead of `dgl.DGLGraph(data)`.
+  dgl_warning(
+Traceback (most recent call last):
+  File "/u/mlowery/GNOT/train.py", line 291, in <module>
+    result = train(model, loss_func, metric_func,
+  File "/u/mlowery/GNOT/train.py", line 75, in train
+    loss = train_batch(model, loss_func, batch, optimizer, lr_scheduler, device, grad_clip=grad_clip)
+  File "/u/mlowery/GNOT/train.py", line 174, in train_batch
+    out = model(g, u_p, g_u)
+  File "/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/u/mlowery/GNOT/models/mmgpt.py", line 332, in forward
+    x = block(x, z, pos)
+  File "/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/u/mlowery/GNOT/models/mmgpt.py", line 232, in forward
+    gate_score = F.softmax(self.gatenet(pos),dim=-1).unsqueeze(2)    # B, T1, 1, m
+  File "/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/torch/nn/modules/container.py", line 219, in forward
+    input = module(input)
+  File "/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 117, in forward
+    return F.linear(input, self.weight, self.bias)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 846.00 MiB. GPU 0 has a total capacity of 39.38 GiB of which 296.12 MiB is free. Including non-PyTorch memory, this process has 39.08 GiB memory in use. Of the allocated memory 38.41 GiB is allocated by PyTorch, and 185.38 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

@@ -1,0 +1,27 @@
+Namespace(dataset='diffr3d', component='all', seed=2023, gpu=0, use_tb=0, comment='rel2', train_num='all', test_num='all', sort_data=0, normalize_x='unit', use_normalizer='unit', epochs=500, optimizer='AdamW', lr=0.001, weight_decay=5e-05, grad_clip='1000.0', batch_size=50, val_batch_size=8, no_cuda=False, lr_method='cycle', lr_step_size=50, warmup_epochs=50, loss_name='rel2', model_name='GNOT', n_hidden=32, n_layers=5, act='gelu', n_head=1, ffn_dropout=0.0, attn_dropout=0.0, mlp_layers=3, attn_type='gated', hfourier_dim=0, n_experts=1, branch_sizes=[2], n_inner=4)
+Load dataset finished 0.2574937343597412
+Training with 1000 samples
+Target features are normalized using unit transformer
+tensor([[0.7733]]) tensor([[0.3227]])
+Target features are normalized using unit transformer
+Input features are normalized using unit transformer
+Load dataset finished 0.04471588134765625
+Testing with 200 samples
+Target features are normalized using unit transformer
+Input features are normalized using unit transformer
+3
+
+
+The following code snippets have been run.
+==================================================
+
+    os.environ['PYTHONHASHSEED'] = str(2023)
+    numpy.random.seed(2023)
+    torch.manual_seed(2023)
+    torch.cuda.manual_seed(2023)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(2023)
+    
+==================================================

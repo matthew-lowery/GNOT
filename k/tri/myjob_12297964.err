@@ -1,0 +1,16 @@
+/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/requests/__init__.py:86: RequestsDependencyWarning: Unable to find acceptable character detection dependency (chardet or charset_normalizer).
+  warnings.warn(
+/u/mlowery/.conda/envs/gnot/lib/python3.10/site-packages/dgl/heterograph.py:92: DGLWarning: Recommend creating graphs by `dgl.graph(data)` instead of `dgl.DGLGraph(data)`.
+  dgl_warning(
+Traceback (most recent call last):
+  File "/u/mlowery/GNOT/train.py", line 238, in <module>
+    model = get_model(args)
+  File "/u/mlowery/GNOT/data_utils.py", line 99, in get_model
+    return GNOT(trunk_size=trunk_size + theta_size,branch_sizes=branch_sizes, output_size=output_size,n_layers=args.n_layers, n_hidden=args.n_hidden, n_head=args.n_head,attn_type=args.attn_type, ffn_dropout=args.ffn_dropout, attn_dropout=args.attn_dropout, mlp_layers=args.mlp_layers, act=args.act,horiz_fourier_dim=args.hfourier_dim,space_dim=args.space_dim,n_experts=args.n_experts, n_inner=args.n_inner)
+  File "/u/mlowery/GNOT/models/mmgpt.py", line 294, in __init__
+    self.blocks = nn.Sequential(*[MIOECrossAttentionBlock(self.gpt_config) for _ in range(self.gpt_config.n_layer)])
+  File "/u/mlowery/GNOT/models/mmgpt.py", line 294, in <listcomp>
+    self.blocks = nn.Sequential(*[MIOECrossAttentionBlock(self.gpt_config) for _ in range(self.gpt_config.n_layer)])
+  File "/u/mlowery/GNOT/models/mmgpt.py", line 187, in __init__
+    raise NotImplementedError
+NotImplementedError

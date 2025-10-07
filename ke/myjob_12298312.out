@@ -1,0 +1,1038 @@
+Namespace(dataset='diffr3d', component='all', seed=2023, gpu=0, use_tb=0, comment='rel2', train_num='all', test_num='all', sort_data=0, normalize_x='unit', use_normalizer='unit', epochs=500, optimizer='AdamW', lr=0.001, weight_decay=5e-05, grad_clip='1000.0', batch_size=50, val_batch_size=8, no_cuda=False, lr_method='cycle', lr_step_size=50, warmup_epochs=50, loss_name='rel2', model_name='GNOT', n_hidden=128, n_layers=5, act='gelu', n_head=1, ffn_dropout=0.0, attn_dropout=0.0, mlp_layers=3, attn_type='linear', hfourier_dim=0, n_experts=1, branch_sizes=[2], n_inner=4)
+Load dataset finished 0.10089468955993652
+Training with 1000 samples
+Target features are normalized using unit transformer
+tensor([[0.7733]]) tensor([[0.3227]])
+Target features are normalized using unit transformer
+Input features are normalized using unit transformer
+Load dataset finished 0.016477346420288086
+Testing with 200 samples
+Target features are normalized using unit transformer
+Input features are normalized using unit transformer
+3
+
+
+The following code snippets have been run.
+==================================================
+
+    os.environ['PYTHONHASHSEED'] = str(2023)
+    numpy.random.seed(2023)
+    torch.manual_seed(2023)
+    torch.cuda.manual_seed(2023)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(2023)
+    
+==================================================
+Using Linear Attention
+Using Linear Attention
+Using Linear Attention
+Using Linear Attention
+Using Linear Attention
+
+Model: MIOEGPT	 Number of params: 3509638
+Saving model and result in ./../models/checkpoints/diffr3d_all_MIOEGPTrel2_0917_02_44_36.pt
+
+Using cycle learning rate schedule
+epoch: [1/500] | loss 0: 1.264359 | loss 1: 0.000000 | current lr: 3.469e-07
+| loss 0: 1.264e+00| val metric 0: 0.470744 | best val: 0.470744 at epoch 1 | current lr: 3.469e-07
+epoch: [2/500] | loss 0: 1.146089 | loss 1: 0.000000 | current lr: 1.088e-06
+| loss 0: 1.146e+00| val metric 0: 0.418642 | best val: 0.418642 at epoch 2 | current lr: 1.088e-06
+epoch: [3/500] | loss 0: 0.908198 | loss 1: 0.000000 | current lr: 2.321e-06
+| loss 0: 9.082e-01| val metric 0: 0.321503 | best val: 0.321503 at epoch 3 | current lr: 2.321e-06
+epoch: [4/500] | loss 0: 0.600621 | loss 1: 0.000000 | current lr: 4.046e-06
+| loss 0: 6.006e-01| val metric 0: 0.190317 | best val: 0.190317 at epoch 4 | current lr: 4.046e-06
+epoch: [5/500] | loss 0: 0.345421 | loss 1: 0.000000 | current lr: 6.261e-06
+| loss 0: 3.454e-01| val metric 0: 0.113931 | best val: 0.113931 at epoch 5 | current lr: 6.261e-06
+epoch: [6/500] | loss 0: 0.238916 | loss 1: 0.000000 | current lr: 8.964e-06
+| loss 0: 2.389e-01| val metric 0: 0.076541 | best val: 0.076541 at epoch 6 | current lr: 8.964e-06
+epoch: [7/500] | loss 0: 0.168745 | loss 1: 0.000000 | current lr: 1.215e-05
+| loss 0: 1.687e-01| val metric 0: 0.057261 | best val: 0.057261 at epoch 7 | current lr: 1.215e-05
+epoch: [8/500] | loss 0: 0.136956 | loss 1: 0.000000 | current lr: 1.582e-05
+| loss 0: 1.370e-01| val metric 0: 0.051843 | best val: 0.051843 at epoch 8 | current lr: 1.582e-05
+epoch: [9/500] | loss 0: 0.124714 | loss 1: 0.000000 | current lr: 1.997e-05
+| loss 0: 1.247e-01| val metric 0: 0.046636 | best val: 0.046636 at epoch 9 | current lr: 1.997e-05
+epoch: [10/500] | loss 0: 0.112398 | loss 1: 0.000000 | current lr: 2.459e-05
+| loss 0: 1.124e-01| val metric 0: 0.043040 | best val: 0.043040 at epoch 10 | current lr: 2.459e-05
+epoch: [11/500] | loss 0: 0.106489 | loss 1: 0.000000 | current lr: 2.969e-05
+| loss 0: 1.065e-01| val metric 0: 0.041425 | best val: 0.041425 at epoch 11 | current lr: 2.969e-05
+epoch: [12/500] | loss 0: 0.107532 | loss 1: 0.000000 | current lr: 3.524e-05
+| loss 0: 1.075e-01| val metric 0: 0.042913 | best val: 0.041425 at epoch 11 | current lr: 3.524e-05
+epoch: [13/500] | loss 0: 0.106425 | loss 1: 0.000000 | current lr: 4.126e-05
+| loss 0: 1.064e-01| val metric 0: 0.040152 | best val: 0.040152 at epoch 13 | current lr: 4.126e-05
+epoch: [14/500] | loss 0: 0.106130 | loss 1: 0.000000 | current lr: 4.773e-05
+| loss 0: 1.061e-01| val metric 0: 0.038069 | best val: 0.038069 at epoch 14 | current lr: 4.773e-05
+epoch: [15/500] | loss 0: 0.108188 | loss 1: 0.000000 | current lr: 5.464e-05
+| loss 0: 1.082e-01| val metric 0: 0.043643 | best val: 0.038069 at epoch 14 | current lr: 5.464e-05
+epoch: [16/500] | loss 0: 0.095926 | loss 1: 0.000000 | current lr: 6.200e-05
+| loss 0: 9.593e-02| val metric 0: 0.037376 | best val: 0.037376 at epoch 16 | current lr: 6.200e-05
+epoch: [17/500] | loss 0: 0.106622 | loss 1: 0.000000 | current lr: 6.979e-05
+| loss 0: 1.066e-01| val metric 0: 0.050065 | best val: 0.037376 at epoch 16 | current lr: 6.979e-05
+epoch: [18/500] | loss 0: 0.099054 | loss 1: 0.000000 | current lr: 7.800e-05
+| loss 0: 9.905e-02| val metric 0: 0.035435 | best val: 0.035435 at epoch 18 | current lr: 7.800e-05
+epoch: [19/500] | loss 0: 0.095201 | loss 1: 0.000000 | current lr: 8.663e-05
+| loss 0: 9.520e-02| val metric 0: 0.030568 | best val: 0.030568 at epoch 19 | current lr: 8.663e-05
+epoch: [20/500] | loss 0: 0.132884 | loss 1: 0.000000 | current lr: 9.567e-05
+| loss 0: 1.329e-01| val metric 0: 0.061626 | best val: 0.030568 at epoch 19 | current lr: 9.567e-05
+epoch: [21/500] | loss 0: 0.140799 | loss 1: 0.000000 | current lr: 1.051e-04
+| loss 0: 1.408e-01| val metric 0: 0.036382 | best val: 0.030568 at epoch 19 | current lr: 1.051e-04
+epoch: [22/500] | loss 0: 0.078568 | loss 1: 0.000000 | current lr: 1.149e-04
+| loss 0: 7.857e-02| val metric 0: 0.025244 | best val: 0.025244 at epoch 22 | current lr: 1.149e-04
+epoch: [23/500] | loss 0: 0.070013 | loss 1: 0.000000 | current lr: 1.252e-04
+| loss 0: 7.001e-02| val metric 0: 0.022406 | best val: 0.022406 at epoch 23 | current lr: 1.252e-04
+epoch: [24/500] | loss 0: 0.082013 | loss 1: 0.000000 | current lr: 1.357e-04
+| loss 0: 8.201e-02| val metric 0: 0.085958 | best val: 0.022406 at epoch 23 | current lr: 1.357e-04
+epoch: [25/500] | loss 0: 0.112081 | loss 1: 0.000000 | current lr: 1.467e-04
+| loss 0: 1.121e-01| val metric 0: 0.046893 | best val: 0.022406 at epoch 23 | current lr: 1.467e-04
+epoch: [26/500] | loss 0: 0.094209 | loss 1: 0.000000 | current lr: 1.580e-04
+| loss 0: 9.421e-02| val metric 0: 0.023985 | best val: 0.022406 at epoch 23 | current lr: 1.580e-04
+epoch: [27/500] | loss 0: 0.074854 | loss 1: 0.000000 | current lr: 1.696e-04
+| loss 0: 7.485e-02| val metric 0: 0.019545 | best val: 0.019545 at epoch 27 | current lr: 1.696e-04
+epoch: [28/500] | loss 0: 0.113994 | loss 1: 0.000000 | current lr: 1.815e-04
+| loss 0: 1.140e-01| val metric 0: 0.054138 | best val: 0.019545 at epoch 27 | current lr: 1.815e-04
+epoch: [29/500] | loss 0: 0.146810 | loss 1: 0.000000 | current lr: 1.938e-04
+| loss 0: 1.468e-01| val metric 0: 0.028571 | best val: 0.019545 at epoch 27 | current lr: 1.938e-04
+epoch: [30/500] | loss 0: 0.105861 | loss 1: 0.000000 | current lr: 2.064e-04
+| loss 0: 1.059e-01| val metric 0: 0.046069 | best val: 0.019545 at epoch 27 | current lr: 2.064e-04
+epoch: [31/500] | loss 0: 0.079465 | loss 1: 0.000000 | current lr: 2.192e-04
+| loss 0: 7.947e-02| val metric 0: 0.033199 | best val: 0.019545 at epoch 27 | current lr: 2.192e-04
+epoch: [32/500] | loss 0: 0.081157 | loss 1: 0.000000 | current lr: 2.324e-04
+| loss 0: 8.116e-02| val metric 0: 0.028882 | best val: 0.019545 at epoch 27 | current lr: 2.324e-04
+epoch: [33/500] | loss 0: 0.061775 | loss 1: 0.000000 | current lr: 2.458e-04
+| loss 0: 6.177e-02| val metric 0: 0.027430 | best val: 0.019545 at epoch 27 | current lr: 2.458e-04
+epoch: [34/500] | loss 0: 0.064213 | loss 1: 0.000000 | current lr: 2.594e-04
+| loss 0: 6.421e-02| val metric 0: 0.040459 | best val: 0.019545 at epoch 27 | current lr: 2.594e-04
+epoch: [35/500] | loss 0: 0.082936 | loss 1: 0.000000 | current lr: 2.733e-04
+| loss 0: 8.294e-02| val metric 0: 0.024380 | best val: 0.019545 at epoch 27 | current lr: 2.733e-04
+epoch: [36/500] | loss 0: 0.075744 | loss 1: 0.000000 | current lr: 2.874e-04
+| loss 0: 7.574e-02| val metric 0: 0.027907 | best val: 0.019545 at epoch 27 | current lr: 2.874e-04
+epoch: [37/500] | loss 0: 0.066412 | loss 1: 0.000000 | current lr: 3.018e-04
+| loss 0: 6.641e-02| val metric 0: 0.022248 | best val: 0.019545 at epoch 27 | current lr: 3.018e-04
+epoch: [38/500] | loss 0: 0.060928 | loss 1: 0.000000 | current lr: 3.163e-04
+| loss 0: 6.093e-02| val metric 0: 0.023422 | best val: 0.019545 at epoch 27 | current lr: 3.163e-04
+epoch: [39/500] | loss 0: 0.090720 | loss 1: 0.000000 | current lr: 3.310e-04
+| loss 0: 9.072e-02| val metric 0: 0.020859 | best val: 0.019545 at epoch 27 | current lr: 3.310e-04
+epoch: [40/500] | loss 0: 0.065569 | loss 1: 0.000000 | current lr: 3.459e-04
+| loss 0: 6.557e-02| val metric 0: 0.038903 | best val: 0.019545 at epoch 27 | current lr: 3.459e-04
+epoch: [41/500] | loss 0: 0.076662 | loss 1: 0.000000 | current lr: 3.609e-04
+| loss 0: 7.666e-02| val metric 0: 0.023196 | best val: 0.019545 at epoch 27 | current lr: 3.609e-04
+epoch: [42/500] | loss 0: 0.100997 | loss 1: 0.000000 | current lr: 3.760e-04
+| loss 0: 1.010e-01| val metric 0: 0.035091 | best val: 0.019545 at epoch 27 | current lr: 3.760e-04
+epoch: [43/500] | loss 0: 0.118630 | loss 1: 0.000000 | current lr: 3.913e-04
+| loss 0: 1.186e-01| val metric 0: 0.029606 | best val: 0.019545 at epoch 27 | current lr: 3.913e-04
+epoch: [44/500] | loss 0: 0.101341 | loss 1: 0.000000 | current lr: 4.067e-04
+| loss 0: 1.013e-01| val metric 0: 0.042514 | best val: 0.019545 at epoch 27 | current lr: 4.067e-04
+epoch: [45/500] | loss 0: 0.054904 | loss 1: 0.000000 | current lr: 4.222e-04
+| loss 0: 5.490e-02| val metric 0: 0.022626 | best val: 0.019545 at epoch 27 | current lr: 4.222e-04
+epoch: [46/500] | loss 0: 0.048930 | loss 1: 0.000000 | current lr: 4.377e-04
+| loss 0: 4.893e-02| val metric 0: 0.033480 | best val: 0.019545 at epoch 27 | current lr: 4.377e-04
+epoch: [47/500] | loss 0: 0.095490 | loss 1: 0.000000 | current lr: 4.534e-04
+| loss 0: 9.549e-02| val metric 0: 0.034196 | best val: 0.019545 at epoch 27 | current lr: 4.534e-04
+epoch: [48/500] | loss 0: 0.065258 | loss 1: 0.000000 | current lr: 4.690e-04
+| loss 0: 6.526e-02| val metric 0: 0.029761 | best val: 0.019545 at epoch 27 | current lr: 4.690e-04
+epoch: [49/500] | loss 0: 0.063385 | loss 1: 0.000000 | current lr: 4.847e-04
+| loss 0: 6.339e-02| val metric 0: 0.028920 | best val: 0.019545 at epoch 27 | current lr: 4.847e-04
+epoch: [50/500] | loss 0: 0.066162 | loss 1: 0.000000 | current lr: 5.004e-04
+| loss 0: 6.616e-02| val metric 0: 0.020195 | best val: 0.019545 at epoch 27 | current lr: 5.004e-04
+epoch: [51/500] | loss 0: 0.051964 | loss 1: 0.000000 | current lr: 5.162e-04
+| loss 0: 5.196e-02| val metric 0: 0.011928 | best val: 0.011928 at epoch 51 | current lr: 5.162e-04
+epoch: [52/500] | loss 0: 0.065424 | loss 1: 0.000000 | current lr: 5.318e-04
+| loss 0: 6.542e-02| val metric 0: 0.019036 | best val: 0.011928 at epoch 51 | current lr: 5.318e-04
+epoch: [53/500] | loss 0: 0.071753 | loss 1: 0.000000 | current lr: 5.475e-04
+| loss 0: 7.175e-02| val metric 0: 0.031919 | best val: 0.011928 at epoch 51 | current lr: 5.475e-04
+epoch: [54/500] | loss 0: 0.087682 | loss 1: 0.000000 | current lr: 5.631e-04
+| loss 0: 8.768e-02| val metric 0: 0.039511 | best val: 0.011928 at epoch 51 | current lr: 5.631e-04
+epoch: [55/500] | loss 0: 0.071728 | loss 1: 0.000000 | current lr: 5.787e-04
+| loss 0: 7.173e-02| val metric 0: 0.018232 | best val: 0.011928 at epoch 51 | current lr: 5.787e-04
+epoch: [56/500] | loss 0: 0.080699 | loss 1: 0.000000 | current lr: 5.942e-04
+| loss 0: 8.070e-02| val metric 0: 0.037042 | best val: 0.011928 at epoch 51 | current lr: 5.942e-04
+epoch: [57/500] | loss 0: 0.079178 | loss 1: 0.000000 | current lr: 6.095e-04
+| loss 0: 7.918e-02| val metric 0: 0.024455 | best val: 0.011928 at epoch 51 | current lr: 6.095e-04
+epoch: [58/500] | loss 0: 0.057212 | loss 1: 0.000000 | current lr: 6.248e-04
+| loss 0: 5.721e-02| val metric 0: 0.014608 | best val: 0.011928 at epoch 51 | current lr: 6.248e-04
+epoch: [59/500] | loss 0: 0.050905 | loss 1: 0.000000 | current lr: 6.400e-04
+| loss 0: 5.091e-02| val metric 0: 0.014507 | best val: 0.011928 at epoch 51 | current lr: 6.400e-04
+epoch: [60/500] | loss 0: 0.058421 | loss 1: 0.000000 | current lr: 6.550e-04
+| loss 0: 5.842e-02| val metric 0: 0.050945 | best val: 0.011928 at epoch 51 | current lr: 6.550e-04
+epoch: [61/500] | loss 0: 0.121020 | loss 1: 0.000000 | current lr: 6.699e-04
+| loss 0: 1.210e-01| val metric 0: 0.033327 | best val: 0.011928 at epoch 51 | current lr: 6.699e-04
+epoch: [62/500] | loss 0: 0.079908 | loss 1: 0.000000 | current lr: 6.845e-04
+| loss 0: 7.991e-02| val metric 0: 0.026167 | best val: 0.011928 at epoch 51 | current lr: 6.845e-04
+epoch: [63/500] | loss 0: 0.070562 | loss 1: 0.000000 | current lr: 6.991e-04
+| loss 0: 7.056e-02| val metric 0: 0.024196 | best val: 0.011928 at epoch 51 | current lr: 6.991e-04
+epoch: [64/500] | loss 0: 0.061503 | loss 1: 0.000000 | current lr: 7.134e-04
+| loss 0: 6.150e-02| val metric 0: 0.025975 | best val: 0.011928 at epoch 51 | current lr: 7.134e-04
+epoch: [65/500] | loss 0: 0.083151 | loss 1: 0.000000 | current lr: 7.275e-04
+| loss 0: 8.315e-02| val metric 0: 0.028914 | best val: 0.011928 at epoch 51 | current lr: 7.275e-04
+epoch: [66/500] | loss 0: 0.050385 | loss 1: 0.000000 | current lr: 7.414e-04
+| loss 0: 5.038e-02| val metric 0: 0.026454 | best val: 0.011928 at epoch 51 | current lr: 7.414e-04
+epoch: [67/500] | loss 0: 0.048645 | loss 1: 0.000000 | current lr: 7.550e-04
+| loss 0: 4.864e-02| val metric 0: 0.010444 | best val: 0.010444 at epoch 67 | current lr: 7.550e-04
+epoch: [68/500] | loss 0: 0.054273 | loss 1: 0.000000 | current lr: 7.684e-04
+| loss 0: 5.427e-02| val metric 0: 0.025336 | best val: 0.010444 at epoch 67 | current lr: 7.684e-04
+epoch: [69/500] | loss 0: 0.053823 | loss 1: 0.000000 | current lr: 7.815e-04
+| loss 0: 5.382e-02| val metric 0: 0.017281 | best val: 0.010444 at epoch 67 | current lr: 7.815e-04
+epoch: [70/500] | loss 0: 0.092980 | loss 1: 0.000000 | current lr: 7.944e-04
+| loss 0: 9.298e-02| val metric 0: 0.034923 | best val: 0.010444 at epoch 67 | current lr: 7.944e-04
+epoch: [71/500] | loss 0: 0.082508 | loss 1: 0.000000 | current lr: 8.069e-04
+| loss 0: 8.251e-02| val metric 0: 0.053323 | best val: 0.010444 at epoch 67 | current lr: 8.069e-04
+epoch: [72/500] | loss 0: 0.099579 | loss 1: 0.000000 | current lr: 8.192e-04
+| loss 0: 9.958e-02| val metric 0: 0.031922 | best val: 0.010444 at epoch 67 | current lr: 8.192e-04
+epoch: [73/500] | loss 0: 0.051276 | loss 1: 0.000000 | current lr: 8.311e-04
+| loss 0: 5.128e-02| val metric 0: 0.028395 | best val: 0.010444 at epoch 67 | current lr: 8.311e-04
+epoch: [74/500] | loss 0: 0.045833 | loss 1: 0.000000 | current lr: 8.427e-04
+| loss 0: 4.583e-02| val metric 0: 0.012396 | best val: 0.010444 at epoch 67 | current lr: 8.427e-04
+epoch: [75/500] | loss 0: 0.049383 | loss 1: 0.000000 | current lr: 8.540e-04
+| loss 0: 4.938e-02| val metric 0: 0.018542 | best val: 0.010444 at epoch 67 | current lr: 8.540e-04
+epoch: [76/500] | loss 0: 0.083982 | loss 1: 0.000000 | current lr: 8.649e-04
+| loss 0: 8.398e-02| val metric 0: 0.047241 | best val: 0.010444 at epoch 67 | current lr: 8.649e-04
+epoch: [77/500] | loss 0: 0.096102 | loss 1: 0.000000 | current lr: 8.755e-04
+| loss 0: 9.610e-02| val metric 0: 0.032061 | best val: 0.010444 at epoch 67 | current lr: 8.755e-04
+epoch: [78/500] | loss 0: 0.070695 | loss 1: 0.000000 | current lr: 8.857e-04
+| loss 0: 7.070e-02| val metric 0: 0.026670 | best val: 0.010444 at epoch 67 | current lr: 8.857e-04
+epoch: [79/500] | loss 0: 0.058019 | loss 1: 0.000000 | current lr: 8.955e-04
+| loss 0: 5.802e-02| val metric 0: 0.021426 | best val: 0.010444 at epoch 67 | current lr: 8.955e-04
+epoch: [80/500] | loss 0: 0.064933 | loss 1: 0.000000 | current lr: 9.049e-04
+| loss 0: 6.493e-02| val metric 0: 0.034071 | best val: 0.010444 at epoch 67 | current lr: 9.049e-04
+epoch: [81/500] | loss 0: 0.059247 | loss 1: 0.000000 | current lr: 9.139e-04
+| loss 0: 5.925e-02| val metric 0: 0.011915 | best val: 0.010444 at epoch 67 | current lr: 9.139e-04
+epoch: [82/500] | loss 0: 0.066945 | loss 1: 0.000000 | current lr: 9.225e-04
+| loss 0: 6.694e-02| val metric 0: 0.022466 | best val: 0.010444 at epoch 67 | current lr: 9.225e-04
+epoch: [83/500] | loss 0: 0.066684 | loss 1: 0.000000 | current lr: 9.307e-04
+| loss 0: 6.668e-02| val metric 0: 0.019568 | best val: 0.010444 at epoch 67 | current lr: 9.307e-04
+epoch: [84/500] | loss 0: 0.057521 | loss 1: 0.000000 | current lr: 9.385e-04
+| loss 0: 5.752e-02| val metric 0: 0.028167 | best val: 0.010444 at epoch 67 | current lr: 9.385e-04
+epoch: [85/500] | loss 0: 0.075420 | loss 1: 0.000000 | current lr: 9.458e-04
+| loss 0: 7.542e-02| val metric 0: 0.035866 | best val: 0.010444 at epoch 67 | current lr: 9.458e-04
+epoch: [86/500] | loss 0: 0.061611 | loss 1: 0.000000 | current lr: 9.527e-04
+| loss 0: 6.161e-02| val metric 0: 0.014920 | best val: 0.010444 at epoch 67 | current lr: 9.527e-04
+epoch: [87/500] | loss 0: 0.051812 | loss 1: 0.000000 | current lr: 9.592e-04
+| loss 0: 5.181e-02| val metric 0: 0.031008 | best val: 0.010444 at epoch 67 | current lr: 9.592e-04
+epoch: [88/500] | loss 0: 0.056583 | loss 1: 0.000000 | current lr: 9.651e-04
+| loss 0: 5.658e-02| val metric 0: 0.018654 | best val: 0.010444 at epoch 67 | current lr: 9.651e-04
+epoch: [89/500] | loss 0: 0.043449 | loss 1: 0.000000 | current lr: 9.707e-04
+| loss 0: 4.345e-02| val metric 0: 0.017009 | best val: 0.010444 at epoch 67 | current lr: 9.707e-04
+epoch: [90/500] | loss 0: 0.042671 | loss 1: 0.000000 | current lr: 9.757e-04
+| loss 0: 4.267e-02| val metric 0: 0.014919 | best val: 0.010444 at epoch 67 | current lr: 9.757e-04
+epoch: [91/500] | loss 0: 0.055238 | loss 1: 0.000000 | current lr: 9.803e-04
+| loss 0: 5.524e-02| val metric 0: 0.026469 | best val: 0.010444 at epoch 67 | current lr: 9.803e-04
+epoch: [92/500] | loss 0: 0.062759 | loss 1: 0.000000 | current lr: 9.845e-04
+| loss 0: 6.276e-02| val metric 0: 0.013755 | best val: 0.010444 at epoch 67 | current lr: 9.845e-04
+epoch: [93/500] | loss 0: 0.040886 | loss 1: 0.000000 | current lr: 9.881e-04
+| loss 0: 4.089e-02| val metric 0: 0.016532 | best val: 0.010444 at epoch 67 | current lr: 9.881e-04
+epoch: [94/500] | loss 0: 0.050015 | loss 1: 0.000000 | current lr: 9.913e-04
+| loss 0: 5.001e-02| val metric 0: 0.021781 | best val: 0.010444 at epoch 67 | current lr: 9.913e-04
+epoch: [95/500] | loss 0: 0.075831 | loss 1: 0.000000 | current lr: 9.940e-04
+| loss 0: 7.583e-02| val metric 0: 0.027739 | best val: 0.010444 at epoch 67 | current lr: 9.940e-04
+epoch: [96/500] | loss 0: 0.056768 | loss 1: 0.000000 | current lr: 9.962e-04
+| loss 0: 5.677e-02| val metric 0: 0.043232 | best val: 0.010444 at epoch 67 | current lr: 9.962e-04
+epoch: [97/500] | loss 0: 0.081133 | loss 1: 0.000000 | current lr: 9.979e-04
+| loss 0: 8.113e-02| val metric 0: 0.036525 | best val: 0.010444 at epoch 67 | current lr: 9.979e-04
+epoch: [98/500] | loss 0: 0.061551 | loss 1: 0.000000 | current lr: 9.991e-04
+| loss 0: 6.155e-02| val metric 0: 0.020137 | best val: 0.010444 at epoch 67 | current lr: 9.991e-04
+epoch: [99/500] | loss 0: 0.049067 | loss 1: 0.000000 | current lr: 9.998e-04
+| loss 0: 4.907e-02| val metric 0: 0.020460 | best val: 0.010444 at epoch 67 | current lr: 9.998e-04
+epoch: [100/500] | loss 0: 0.044558 | loss 1: 0.000000 | current lr: 1.000e-03
+| loss 0: 4.456e-02| val metric 0: 0.014850 | best val: 0.010444 at epoch 67 | current lr: 1.000e-03
+epoch: [101/500] | loss 0: 0.061152 | loss 1: 0.000000 | current lr: 1.000e-03
+| loss 0: 6.115e-02| val metric 0: 0.035768 | best val: 0.010444 at epoch 67 | current lr: 1.000e-03
+epoch: [102/500] | loss 0: 0.070105 | loss 1: 0.000000 | current lr: 9.999e-04
+| loss 0: 7.011e-02| val metric 0: 0.029317 | best val: 0.010444 at epoch 67 | current lr: 9.999e-04
+epoch: [103/500] | loss 0: 0.066629 | loss 1: 0.000000 | current lr: 9.999e-04
+| loss 0: 6.663e-02| val metric 0: 0.015783 | best val: 0.010444 at epoch 67 | current lr: 9.999e-04
+epoch: [104/500] | loss 0: 0.056263 | loss 1: 0.000000 | current lr: 9.997e-04
+| loss 0: 5.626e-02| val metric 0: 0.020679 | best val: 0.010444 at epoch 67 | current lr: 9.997e-04
+epoch: [105/500] | loss 0: 0.056666 | loss 1: 0.000000 | current lr: 9.996e-04
+| loss 0: 5.667e-02| val metric 0: 0.024453 | best val: 0.010444 at epoch 67 | current lr: 9.996e-04
+epoch: [106/500] | loss 0: 0.048997 | loss 1: 0.000000 | current lr: 9.994e-04
+| loss 0: 4.900e-02| val metric 0: 0.021906 | best val: 0.010444 at epoch 67 | current lr: 9.994e-04
+epoch: [107/500] | loss 0: 0.060069 | loss 1: 0.000000 | current lr: 9.992e-04
+| loss 0: 6.007e-02| val metric 0: 0.029074 | best val: 0.010444 at epoch 67 | current lr: 9.992e-04
+epoch: [108/500] | loss 0: 0.051805 | loss 1: 0.000000 | current lr: 9.990e-04
+| loss 0: 5.180e-02| val metric 0: 0.018854 | best val: 0.010444 at epoch 67 | current lr: 9.990e-04
+epoch: [109/500] | loss 0: 0.048846 | loss 1: 0.000000 | current lr: 9.987e-04
+| loss 0: 4.885e-02| val metric 0: 0.018199 | best val: 0.010444 at epoch 67 | current lr: 9.987e-04
+epoch: [110/500] | loss 0: 0.042924 | loss 1: 0.000000 | current lr: 9.984e-04
+| loss 0: 4.292e-02| val metric 0: 0.016785 | best val: 0.010444 at epoch 67 | current lr: 9.984e-04
+epoch: [111/500] | loss 0: 0.039518 | loss 1: 0.000000 | current lr: 9.981e-04
+| loss 0: 3.952e-02| val metric 0: 0.017983 | best val: 0.010444 at epoch 67 | current lr: 9.981e-04
+epoch: [112/500] | loss 0: 0.042003 | loss 1: 0.000000 | current lr: 9.978e-04
+| loss 0: 4.200e-02| val metric 0: 0.010233 | best val: 0.010233 at epoch 112 | current lr: 9.978e-04
+epoch: [113/500] | loss 0: 0.041546 | loss 1: 0.000000 | current lr: 9.974e-04
+| loss 0: 4.155e-02| val metric 0: 0.022755 | best val: 0.010233 at epoch 112 | current lr: 9.974e-04
+epoch: [114/500] | loss 0: 0.049133 | loss 1: 0.000000 | current lr: 9.970e-04
+| loss 0: 4.913e-02| val metric 0: 0.028133 | best val: 0.010233 at epoch 112 | current lr: 9.970e-04
+epoch: [115/500] | loss 0: 0.053068 | loss 1: 0.000000 | current lr: 9.965e-04
+| loss 0: 5.307e-02| val metric 0: 0.017191 | best val: 0.010233 at epoch 112 | current lr: 9.965e-04
+epoch: [116/500] | loss 0: 0.050953 | loss 1: 0.000000 | current lr: 9.960e-04
+| loss 0: 5.095e-02| val metric 0: 0.012542 | best val: 0.010233 at epoch 112 | current lr: 9.960e-04
+epoch: [117/500] | loss 0: 0.038625 | loss 1: 0.000000 | current lr: 9.955e-04
+| loss 0: 3.863e-02| val metric 0: 0.012043 | best val: 0.010233 at epoch 112 | current lr: 9.955e-04
+epoch: [118/500] | loss 0: 0.053666 | loss 1: 0.000000 | current lr: 9.950e-04
+| loss 0: 5.367e-02| val metric 0: 0.019571 | best val: 0.010233 at epoch 112 | current lr: 9.950e-04
+epoch: [119/500] | loss 0: 0.051157 | loss 1: 0.000000 | current lr: 9.944e-04
+| loss 0: 5.116e-02| val metric 0: 0.016137 | best val: 0.010233 at epoch 112 | current lr: 9.944e-04
+epoch: [120/500] | loss 0: 0.046200 | loss 1: 0.000000 | current lr: 9.938e-04
+| loss 0: 4.620e-02| val metric 0: 0.020514 | best val: 0.010233 at epoch 112 | current lr: 9.938e-04
+epoch: [121/500] | loss 0: 0.034704 | loss 1: 0.000000 | current lr: 9.932e-04
+| loss 0: 3.470e-02| val metric 0: 0.009848 | best val: 0.009848 at epoch 121 | current lr: 9.932e-04
+epoch: [122/500] | loss 0: 0.041727 | loss 1: 0.000000 | current lr: 9.925e-04
+| loss 0: 4.173e-02| val metric 0: 0.016392 | best val: 0.009848 at epoch 121 | current lr: 9.925e-04
+epoch: [123/500] | loss 0: 0.047656 | loss 1: 0.000000 | current lr: 9.918e-04
+| loss 0: 4.766e-02| val metric 0: 0.020884 | best val: 0.009848 at epoch 121 | current lr: 9.918e-04
+epoch: [124/500] | loss 0: 0.047281 | loss 1: 0.000000 | current lr: 9.911e-04
+| loss 0: 4.728e-02| val metric 0: 0.020254 | best val: 0.009848 at epoch 121 | current lr: 9.911e-04
+epoch: [125/500] | loss 0: 0.038096 | loss 1: 0.000000 | current lr: 9.904e-04
+| loss 0: 3.810e-02| val metric 0: 0.013134 | best val: 0.009848 at epoch 121 | current lr: 9.904e-04
+epoch: [126/500] | loss 0: 0.033474 | loss 1: 0.000000 | current lr: 9.896e-04
+| loss 0: 3.347e-02| val metric 0: 0.008696 | best val: 0.008696 at epoch 126 | current lr: 9.896e-04
+epoch: [127/500] | loss 0: 0.029184 | loss 1: 0.000000 | current lr: 9.888e-04
+| loss 0: 2.918e-02| val metric 0: 0.011691 | best val: 0.008696 at epoch 126 | current lr: 9.888e-04
+epoch: [128/500] | loss 0: 0.029086 | loss 1: 0.000000 | current lr: 9.879e-04
+| loss 0: 2.909e-02| val metric 0: 0.009703 | best val: 0.008696 at epoch 126 | current lr: 9.879e-04
+epoch: [129/500] | loss 0: 0.028432 | loss 1: 0.000000 | current lr: 9.870e-04
+| loss 0: 2.843e-02| val metric 0: 0.012716 | best val: 0.008696 at epoch 126 | current lr: 9.870e-04
+epoch: [130/500] | loss 0: 0.029068 | loss 1: 0.000000 | current lr: 9.861e-04
+| loss 0: 2.907e-02| val metric 0: 0.011627 | best val: 0.008696 at epoch 126 | current lr: 9.861e-04
+epoch: [131/500] | loss 0: 0.040952 | loss 1: 0.000000 | current lr: 9.852e-04
+| loss 0: 4.095e-02| val metric 0: 0.021735 | best val: 0.008696 at epoch 126 | current lr: 9.852e-04
+epoch: [132/500] | loss 0: 0.029250 | loss 1: 0.000000 | current lr: 9.842e-04
+| loss 0: 2.925e-02| val metric 0: 0.007615 | best val: 0.007615 at epoch 132 | current lr: 9.842e-04
+epoch: [133/500] | loss 0: 0.038108 | loss 1: 0.000000 | current lr: 9.832e-04
+| loss 0: 3.811e-02| val metric 0: 0.018082 | best val: 0.007615 at epoch 132 | current lr: 9.832e-04
+epoch: [134/500] | loss 0: 0.038114 | loss 1: 0.000000 | current lr: 9.822e-04
+| loss 0: 3.811e-02| val metric 0: 0.023202 | best val: 0.007615 at epoch 132 | current lr: 9.822e-04
+epoch: [135/500] | loss 0: 0.039645 | loss 1: 0.000000 | current lr: 9.812e-04
+| loss 0: 3.964e-02| val metric 0: 0.015965 | best val: 0.007615 at epoch 132 | current lr: 9.812e-04
+epoch: [136/500] | loss 0: 0.045370 | loss 1: 0.000000 | current lr: 9.801e-04
+| loss 0: 4.537e-02| val metric 0: 0.011848 | best val: 0.007615 at epoch 132 | current lr: 9.801e-04
+epoch: [137/500] | loss 0: 0.039544 | loss 1: 0.000000 | current lr: 9.790e-04
+| loss 0: 3.954e-02| val metric 0: 0.018149 | best val: 0.007615 at epoch 132 | current lr: 9.790e-04
+epoch: [138/500] | loss 0: 0.034366 | loss 1: 0.000000 | current lr: 9.778e-04
+| loss 0: 3.437e-02| val metric 0: 0.013764 | best val: 0.007615 at epoch 132 | current lr: 9.778e-04
+epoch: [139/500] | loss 0: 0.027859 | loss 1: 0.000000 | current lr: 9.767e-04
+| loss 0: 2.786e-02| val metric 0: 0.010667 | best val: 0.007615 at epoch 132 | current lr: 9.767e-04
+epoch: [140/500] | loss 0: 0.037768 | loss 1: 0.000000 | current lr: 9.755e-04
+| loss 0: 3.777e-02| val metric 0: 0.016642 | best val: 0.007615 at epoch 132 | current lr: 9.755e-04
+epoch: [141/500] | loss 0: 0.049966 | loss 1: 0.000000 | current lr: 9.742e-04
+| loss 0: 4.997e-02| val metric 0: 0.025422 | best val: 0.007615 at epoch 132 | current lr: 9.742e-04
+epoch: [142/500] | loss 0: 0.048121 | loss 1: 0.000000 | current lr: 9.730e-04
+| loss 0: 4.812e-02| val metric 0: 0.017070 | best val: 0.007615 at epoch 132 | current lr: 9.730e-04
+epoch: [143/500] | loss 0: 0.026257 | loss 1: 0.000000 | current lr: 9.717e-04
+| loss 0: 2.626e-02| val metric 0: 0.008682 | best val: 0.007615 at epoch 132 | current lr: 9.717e-04
+epoch: [144/500] | loss 0: 0.032276 | loss 1: 0.000000 | current lr: 9.704e-04
+| loss 0: 3.228e-02| val metric 0: 0.011943 | best val: 0.007615 at epoch 132 | current lr: 9.704e-04
+epoch: [145/500] | loss 0: 0.027391 | loss 1: 0.000000 | current lr: 9.690e-04
+| loss 0: 2.739e-02| val metric 0: 0.020930 | best val: 0.007615 at epoch 132 | current lr: 9.690e-04
+epoch: [146/500] | loss 0: 0.030198 | loss 1: 0.000000 | current lr: 9.677e-04
+| loss 0: 3.020e-02| val metric 0: 0.007682 | best val: 0.007615 at epoch 132 | current lr: 9.677e-04
+epoch: [147/500] | loss 0: 0.025627 | loss 1: 0.000000 | current lr: 9.662e-04
+| loss 0: 2.563e-02| val metric 0: 0.011833 | best val: 0.007615 at epoch 132 | current lr: 9.662e-04
+epoch: [148/500] | loss 0: 0.033065 | loss 1: 0.000000 | current lr: 9.648e-04
+| loss 0: 3.306e-02| val metric 0: 0.014687 | best val: 0.007615 at epoch 132 | current lr: 9.648e-04
+epoch: [149/500] | loss 0: 0.029782 | loss 1: 0.000000 | current lr: 9.634e-04
+| loss 0: 2.978e-02| val metric 0: 0.010074 | best val: 0.007615 at epoch 132 | current lr: 9.634e-04
+epoch: [150/500] | loss 0: 0.032087 | loss 1: 0.000000 | current lr: 9.619e-04
+| loss 0: 3.209e-02| val metric 0: 0.010459 | best val: 0.007615 at epoch 132 | current lr: 9.619e-04
+epoch: [151/500] | loss 0: 0.035173 | loss 1: 0.000000 | current lr: 9.603e-04
+| loss 0: 3.517e-02| val metric 0: 0.026376 | best val: 0.007615 at epoch 132 | current lr: 9.603e-04
+epoch: [152/500] | loss 0: 0.042176 | loss 1: 0.000000 | current lr: 9.588e-04
+| loss 0: 4.218e-02| val metric 0: 0.022506 | best val: 0.007615 at epoch 132 | current lr: 9.588e-04
+epoch: [153/500] | loss 0: 0.046823 | loss 1: 0.000000 | current lr: 9.572e-04
+| loss 0: 4.682e-02| val metric 0: 0.022985 | best val: 0.007615 at epoch 132 | current lr: 9.572e-04
+epoch: [154/500] | loss 0: 0.045295 | loss 1: 0.000000 | current lr: 9.556e-04
+| loss 0: 4.530e-02| val metric 0: 0.024659 | best val: 0.007615 at epoch 132 | current lr: 9.556e-04
+epoch: [155/500] | loss 0: 0.034149 | loss 1: 0.000000 | current lr: 9.540e-04
+| loss 0: 3.415e-02| val metric 0: 0.006727 | best val: 0.006727 at epoch 155 | current lr: 9.540e-04
+epoch: [156/500] | loss 0: 0.038471 | loss 1: 0.000000 | current lr: 9.523e-04
+| loss 0: 3.847e-02| val metric 0: 0.014256 | best val: 0.006727 at epoch 155 | current lr: 9.523e-04
+epoch: [157/500] | loss 0: 0.027567 | loss 1: 0.000000 | current lr: 9.506e-04
+| loss 0: 2.757e-02| val metric 0: 0.017426 | best val: 0.006727 at epoch 155 | current lr: 9.506e-04
+epoch: [158/500] | loss 0: 0.036669 | loss 1: 0.000000 | current lr: 9.489e-04
+| loss 0: 3.667e-02| val metric 0: 0.013851 | best val: 0.006727 at epoch 155 | current lr: 9.489e-04
+epoch: [159/500] | loss 0: 0.032246 | loss 1: 0.000000 | current lr: 9.472e-04
+| loss 0: 3.225e-02| val metric 0: 0.010604 | best val: 0.006727 at epoch 155 | current lr: 9.472e-04
+epoch: [160/500] | loss 0: 0.029136 | loss 1: 0.000000 | current lr: 9.454e-04
+| loss 0: 2.914e-02| val metric 0: 0.010655 | best val: 0.006727 at epoch 155 | current lr: 9.454e-04
+epoch: [161/500] | loss 0: 0.038684 | loss 1: 0.000000 | current lr: 9.436e-04
+| loss 0: 3.868e-02| val metric 0: 0.010854 | best val: 0.006727 at epoch 155 | current lr: 9.436e-04
+epoch: [162/500] | loss 0: 0.033635 | loss 1: 0.000000 | current lr: 9.418e-04
+| loss 0: 3.364e-02| val metric 0: 0.015400 | best val: 0.006727 at epoch 155 | current lr: 9.418e-04
+epoch: [163/500] | loss 0: 0.031976 | loss 1: 0.000000 | current lr: 9.399e-04
+| loss 0: 3.198e-02| val metric 0: 0.014195 | best val: 0.006727 at epoch 155 | current lr: 9.399e-04
+epoch: [164/500] | loss 0: 0.032204 | loss 1: 0.000000 | current lr: 9.381e-04
+| loss 0: 3.220e-02| val metric 0: 0.014313 | best val: 0.006727 at epoch 155 | current lr: 9.381e-04
+epoch: [165/500] | loss 0: 0.033864 | loss 1: 0.000000 | current lr: 9.362e-04
+| loss 0: 3.386e-02| val metric 0: 0.006542 | best val: 0.006542 at epoch 165 | current lr: 9.362e-04
+epoch: [166/500] | loss 0: 0.024862 | loss 1: 0.000000 | current lr: 9.342e-04
+| loss 0: 2.486e-02| val metric 0: 0.005984 | best val: 0.005984 at epoch 166 | current lr: 9.342e-04
+epoch: [167/500] | loss 0: 0.030503 | loss 1: 0.000000 | current lr: 9.323e-04
+| loss 0: 3.050e-02| val metric 0: 0.013710 | best val: 0.005984 at epoch 166 | current lr: 9.323e-04
+epoch: [168/500] | loss 0: 0.023799 | loss 1: 0.000000 | current lr: 9.303e-04
+| loss 0: 2.380e-02| val metric 0: 0.011328 | best val: 0.005984 at epoch 166 | current lr: 9.303e-04
+epoch: [169/500] | loss 0: 0.023076 | loss 1: 0.000000 | current lr: 9.283e-04
+| loss 0: 2.308e-02| val metric 0: 0.006949 | best val: 0.005984 at epoch 166 | current lr: 9.283e-04
+epoch: [170/500] | loss 0: 0.024773 | loss 1: 0.000000 | current lr: 9.262e-04
+| loss 0: 2.477e-02| val metric 0: 0.015249 | best val: 0.005984 at epoch 166 | current lr: 9.262e-04
+epoch: [171/500] | loss 0: 0.029084 | loss 1: 0.000000 | current lr: 9.242e-04
+| loss 0: 2.908e-02| val metric 0: 0.013012 | best val: 0.005984 at epoch 166 | current lr: 9.242e-04
+epoch: [172/500] | loss 0: 0.025993 | loss 1: 0.000000 | current lr: 9.221e-04
+| loss 0: 2.599e-02| val metric 0: 0.007429 | best val: 0.005984 at epoch 166 | current lr: 9.221e-04
+epoch: [173/500] | loss 0: 0.033773 | loss 1: 0.000000 | current lr: 9.199e-04
+| loss 0: 3.377e-02| val metric 0: 0.017031 | best val: 0.005984 at epoch 166 | current lr: 9.199e-04
+epoch: [174/500] | loss 0: 0.034938 | loss 1: 0.000000 | current lr: 9.178e-04
+| loss 0: 3.494e-02| val metric 0: 0.014735 | best val: 0.005984 at epoch 166 | current lr: 9.178e-04
+epoch: [175/500] | loss 0: 0.038540 | loss 1: 0.000000 | current lr: 9.156e-04
+| loss 0: 3.854e-02| val metric 0: 0.010398 | best val: 0.005984 at epoch 166 | current lr: 9.156e-04
+epoch: [176/500] | loss 0: 0.038236 | loss 1: 0.000000 | current lr: 9.134e-04
+| loss 0: 3.824e-02| val metric 0: 0.015990 | best val: 0.005984 at epoch 166 | current lr: 9.134e-04
+epoch: [177/500] | loss 0: 0.043506 | loss 1: 0.000000 | current lr: 9.112e-04
+| loss 0: 4.351e-02| val metric 0: 0.022083 | best val: 0.005984 at epoch 166 | current lr: 9.112e-04
+epoch: [178/500] | loss 0: 0.036846 | loss 1: 0.000000 | current lr: 9.090e-04
+| loss 0: 3.685e-02| val metric 0: 0.014663 | best val: 0.005984 at epoch 166 | current lr: 9.090e-04
+epoch: [179/500] | loss 0: 0.030120 | loss 1: 0.000000 | current lr: 9.067e-04
+| loss 0: 3.012e-02| val metric 0: 0.013331 | best val: 0.005984 at epoch 166 | current lr: 9.067e-04
+epoch: [180/500] | loss 0: 0.022051 | loss 1: 0.000000 | current lr: 9.044e-04
+| loss 0: 2.205e-02| val metric 0: 0.009901 | best val: 0.005984 at epoch 166 | current lr: 9.044e-04
+epoch: [181/500] | loss 0: 0.019597 | loss 1: 0.000000 | current lr: 9.021e-04
+| loss 0: 1.960e-02| val metric 0: 0.006168 | best val: 0.005984 at epoch 166 | current lr: 9.021e-04
+epoch: [182/500] | loss 0: 0.023854 | loss 1: 0.000000 | current lr: 8.997e-04
+| loss 0: 2.385e-02| val metric 0: 0.015082 | best val: 0.005984 at epoch 166 | current lr: 8.997e-04
+epoch: [183/500] | loss 0: 0.033320 | loss 1: 0.000000 | current lr: 8.974e-04
+| loss 0: 3.332e-02| val metric 0: 0.013285 | best val: 0.005984 at epoch 166 | current lr: 8.974e-04
+epoch: [184/500] | loss 0: 0.031447 | loss 1: 0.000000 | current lr: 8.950e-04
+| loss 0: 3.145e-02| val metric 0: 0.007348 | best val: 0.005984 at epoch 166 | current lr: 8.950e-04
+epoch: [185/500] | loss 0: 0.026236 | loss 1: 0.000000 | current lr: 8.925e-04
+| loss 0: 2.624e-02| val metric 0: 0.008464 | best val: 0.005984 at epoch 166 | current lr: 8.925e-04
+epoch: [186/500] | loss 0: 0.019735 | loss 1: 0.000000 | current lr: 8.901e-04
+| loss 0: 1.974e-02| val metric 0: 0.005824 | best val: 0.005824 at epoch 186 | current lr: 8.901e-04
+epoch: [187/500] | loss 0: 0.018665 | loss 1: 0.000000 | current lr: 8.876e-04
+| loss 0: 1.867e-02| val metric 0: 0.005401 | best val: 0.005401 at epoch 187 | current lr: 8.876e-04
+epoch: [188/500] | loss 0: 0.026265 | loss 1: 0.000000 | current lr: 8.851e-04
+| loss 0: 2.626e-02| val metric 0: 0.017849 | best val: 0.005401 at epoch 187 | current lr: 8.851e-04
+epoch: [189/500] | loss 0: 0.033379 | loss 1: 0.000000 | current lr: 8.826e-04
+| loss 0: 3.338e-02| val metric 0: 0.009273 | best val: 0.005401 at epoch 187 | current lr: 8.826e-04
+epoch: [190/500] | loss 0: 0.021010 | loss 1: 0.000000 | current lr: 8.801e-04
+| loss 0: 2.101e-02| val metric 0: 0.007530 | best val: 0.005401 at epoch 187 | current lr: 8.801e-04
+epoch: [191/500] | loss 0: 0.026357 | loss 1: 0.000000 | current lr: 8.775e-04
+| loss 0: 2.636e-02| val metric 0: 0.014145 | best val: 0.005401 at epoch 187 | current lr: 8.775e-04
+epoch: [192/500] | loss 0: 0.034677 | loss 1: 0.000000 | current lr: 8.749e-04
+| loss 0: 3.468e-02| val metric 0: 0.012612 | best val: 0.005401 at epoch 187 | current lr: 8.749e-04
+epoch: [193/500] | loss 0: 0.028572 | loss 1: 0.000000 | current lr: 8.723e-04
+| loss 0: 2.857e-02| val metric 0: 0.013104 | best val: 0.005401 at epoch 187 | current lr: 8.723e-04
+epoch: [194/500] | loss 0: 0.027537 | loss 1: 0.000000 | current lr: 8.697e-04
+| loss 0: 2.754e-02| val metric 0: 0.014355 | best val: 0.005401 at epoch 187 | current lr: 8.697e-04
+epoch: [195/500] | loss 0: 0.030100 | loss 1: 0.000000 | current lr: 8.670e-04
+| loss 0: 3.010e-02| val metric 0: 0.014875 | best val: 0.005401 at epoch 187 | current lr: 8.670e-04
+epoch: [196/500] | loss 0: 0.021983 | loss 1: 0.000000 | current lr: 8.643e-04
+| loss 0: 2.198e-02| val metric 0: 0.007177 | best val: 0.005401 at epoch 187 | current lr: 8.643e-04
+epoch: [197/500] | loss 0: 0.021570 | loss 1: 0.000000 | current lr: 8.616e-04
+| loss 0: 2.157e-02| val metric 0: 0.007891 | best val: 0.005401 at epoch 187 | current lr: 8.616e-04
+epoch: [198/500] | loss 0: 0.024385 | loss 1: 0.000000 | current lr: 8.589e-04
+| loss 0: 2.439e-02| val metric 0: 0.014086 | best val: 0.005401 at epoch 187 | current lr: 8.589e-04
+epoch: [199/500] | loss 0: 0.029159 | loss 1: 0.000000 | current lr: 8.562e-04
+| loss 0: 2.916e-02| val metric 0: 0.017177 | best val: 0.005401 at epoch 187 | current lr: 8.562e-04
+epoch: [200/500] | loss 0: 0.033154 | loss 1: 0.000000 | current lr: 8.534e-04
+| loss 0: 3.315e-02| val metric 0: 0.009053 | best val: 0.005401 at epoch 187 | current lr: 8.534e-04
+epoch: [201/500] | loss 0: 0.020434 | loss 1: 0.000000 | current lr: 8.506e-04
+| loss 0: 2.043e-02| val metric 0: 0.007108 | best val: 0.005401 at epoch 187 | current lr: 8.506e-04
+epoch: [202/500] | loss 0: 0.026890 | loss 1: 0.000000 | current lr: 8.478e-04
+| loss 0: 2.689e-02| val metric 0: 0.010897 | best val: 0.005401 at epoch 187 | current lr: 8.478e-04
+epoch: [203/500] | loss 0: 0.022473 | loss 1: 0.000000 | current lr: 8.450e-04
+| loss 0: 2.247e-02| val metric 0: 0.015608 | best val: 0.005401 at epoch 187 | current lr: 8.450e-04
+epoch: [204/500] | loss 0: 0.032538 | loss 1: 0.000000 | current lr: 8.421e-04
+| loss 0: 3.254e-02| val metric 0: 0.012777 | best val: 0.005401 at epoch 187 | current lr: 8.421e-04
+epoch: [205/500] | loss 0: 0.029278 | loss 1: 0.000000 | current lr: 8.393e-04
+| loss 0: 2.928e-02| val metric 0: 0.016738 | best val: 0.005401 at epoch 187 | current lr: 8.393e-04
+epoch: [206/500] | loss 0: 0.032197 | loss 1: 0.000000 | current lr: 8.364e-04
+| loss 0: 3.220e-02| val metric 0: 0.009354 | best val: 0.005401 at epoch 187 | current lr: 8.364e-04
+epoch: [207/500] | loss 0: 0.025297 | loss 1: 0.000000 | current lr: 8.334e-04
+| loss 0: 2.530e-02| val metric 0: 0.011608 | best val: 0.005401 at epoch 187 | current lr: 8.334e-04
+epoch: [208/500] | loss 0: 0.024514 | loss 1: 0.000000 | current lr: 8.305e-04
+| loss 0: 2.451e-02| val metric 0: 0.009099 | best val: 0.005401 at epoch 187 | current lr: 8.305e-04
+epoch: [209/500] | loss 0: 0.022317 | loss 1: 0.000000 | current lr: 8.276e-04
+| loss 0: 2.232e-02| val metric 0: 0.009460 | best val: 0.005401 at epoch 187 | current lr: 8.276e-04
+epoch: [210/500] | loss 0: 0.018761 | loss 1: 0.000000 | current lr: 8.246e-04
+| loss 0: 1.876e-02| val metric 0: 0.010476 | best val: 0.005401 at epoch 187 | current lr: 8.246e-04
+epoch: [211/500] | loss 0: 0.022969 | loss 1: 0.000000 | current lr: 8.216e-04
+| loss 0: 2.297e-02| val metric 0: 0.005201 | best val: 0.005201 at epoch 211 | current lr: 8.216e-04
+epoch: [212/500] | loss 0: 0.025943 | loss 1: 0.000000 | current lr: 8.186e-04
+| loss 0: 2.594e-02| val metric 0: 0.010947 | best val: 0.005201 at epoch 211 | current lr: 8.186e-04
+epoch: [213/500] | loss 0: 0.028177 | loss 1: 0.000000 | current lr: 8.155e-04
+| loss 0: 2.818e-02| val metric 0: 0.010173 | best val: 0.005201 at epoch 211 | current lr: 8.155e-04
+epoch: [214/500] | loss 0: 0.029380 | loss 1: 0.000000 | current lr: 8.125e-04
+| loss 0: 2.938e-02| val metric 0: 0.010160 | best val: 0.005201 at epoch 211 | current lr: 8.125e-04
+epoch: [215/500] | loss 0: 0.029820 | loss 1: 0.000000 | current lr: 8.094e-04
+| loss 0: 2.982e-02| val metric 0: 0.011925 | best val: 0.005201 at epoch 211 | current lr: 8.094e-04
+epoch: [216/500] | loss 0: 0.019824 | loss 1: 0.000000 | current lr: 8.063e-04
+| loss 0: 1.982e-02| val metric 0: 0.005048 | best val: 0.005048 at epoch 216 | current lr: 8.063e-04
+epoch: [217/500] | loss 0: 0.019500 | loss 1: 0.000000 | current lr: 8.032e-04
+| loss 0: 1.950e-02| val metric 0: 0.010395 | best val: 0.005048 at epoch 216 | current lr: 8.032e-04
+epoch: [218/500] | loss 0: 0.021277 | loss 1: 0.000000 | current lr: 8.001e-04
+| loss 0: 2.128e-02| val metric 0: 0.005648 | best val: 0.005048 at epoch 216 | current lr: 8.001e-04
+epoch: [219/500] | loss 0: 0.015624 | loss 1: 0.000000 | current lr: 7.969e-04
+| loss 0: 1.562e-02| val metric 0: 0.008768 | best val: 0.005048 at epoch 216 | current lr: 7.969e-04
+epoch: [220/500] | loss 0: 0.022390 | loss 1: 0.000000 | current lr: 7.937e-04
+| loss 0: 2.239e-02| val metric 0: 0.006691 | best val: 0.005048 at epoch 216 | current lr: 7.937e-04
+epoch: [221/500] | loss 0: 0.018466 | loss 1: 0.000000 | current lr: 7.905e-04
+| loss 0: 1.847e-02| val metric 0: 0.007674 | best val: 0.005048 at epoch 216 | current lr: 7.905e-04
+epoch: [222/500] | loss 0: 0.017831 | loss 1: 0.000000 | current lr: 7.873e-04
+| loss 0: 1.783e-02| val metric 0: 0.005505 | best val: 0.005048 at epoch 216 | current lr: 7.873e-04
+epoch: [223/500] | loss 0: 0.017827 | loss 1: 0.000000 | current lr: 7.841e-04
+| loss 0: 1.783e-02| val metric 0: 0.008271 | best val: 0.005048 at epoch 216 | current lr: 7.841e-04
+epoch: [224/500] | loss 0: 0.021806 | loss 1: 0.000000 | current lr: 7.809e-04
+| loss 0: 2.181e-02| val metric 0: 0.010077 | best val: 0.005048 at epoch 216 | current lr: 7.809e-04
+epoch: [225/500] | loss 0: 0.022174 | loss 1: 0.000000 | current lr: 7.776e-04
+| loss 0: 2.217e-02| val metric 0: 0.006411 | best val: 0.005048 at epoch 216 | current lr: 7.776e-04
+epoch: [226/500] | loss 0: 0.017101 | loss 1: 0.000000 | current lr: 7.743e-04
+| loss 0: 1.710e-02| val metric 0: 0.004289 | best val: 0.004289 at epoch 226 | current lr: 7.743e-04
+epoch: [227/500] | loss 0: 0.018746 | loss 1: 0.000000 | current lr: 7.711e-04
+| loss 0: 1.875e-02| val metric 0: 0.008138 | best val: 0.004289 at epoch 226 | current lr: 7.711e-04
+epoch: [228/500] | loss 0: 0.023325 | loss 1: 0.000000 | current lr: 7.677e-04
+| loss 0: 2.332e-02| val metric 0: 0.013153 | best val: 0.004289 at epoch 226 | current lr: 7.677e-04
+epoch: [229/500] | loss 0: 0.024239 | loss 1: 0.000000 | current lr: 7.644e-04
+| loss 0: 2.424e-02| val metric 0: 0.011079 | best val: 0.004289 at epoch 226 | current lr: 7.644e-04
+epoch: [230/500] | loss 0: 0.021310 | loss 1: 0.000000 | current lr: 7.611e-04
+| loss 0: 2.131e-02| val metric 0: 0.011329 | best val: 0.004289 at epoch 226 | current lr: 7.611e-04
+epoch: [231/500] | loss 0: 0.022957 | loss 1: 0.000000 | current lr: 7.577e-04
+| loss 0: 2.296e-02| val metric 0: 0.010682 | best val: 0.004289 at epoch 226 | current lr: 7.577e-04
+epoch: [232/500] | loss 0: 0.025663 | loss 1: 0.000000 | current lr: 7.544e-04
+| loss 0: 2.566e-02| val metric 0: 0.014828 | best val: 0.004289 at epoch 226 | current lr: 7.544e-04
+epoch: [233/500] | loss 0: 0.029650 | loss 1: 0.000000 | current lr: 7.510e-04
+| loss 0: 2.965e-02| val metric 0: 0.011023 | best val: 0.004289 at epoch 226 | current lr: 7.510e-04
+epoch: [234/500] | loss 0: 0.023759 | loss 1: 0.000000 | current lr: 7.476e-04
+| loss 0: 2.376e-02| val metric 0: 0.006633 | best val: 0.004289 at epoch 226 | current lr: 7.476e-04
+epoch: [235/500] | loss 0: 0.020549 | loss 1: 0.000000 | current lr: 7.441e-04
+| loss 0: 2.055e-02| val metric 0: 0.012060 | best val: 0.004289 at epoch 226 | current lr: 7.441e-04
+epoch: [236/500] | loss 0: 0.021255 | loss 1: 0.000000 | current lr: 7.407e-04
+| loss 0: 2.125e-02| val metric 0: 0.006775 | best val: 0.004289 at epoch 226 | current lr: 7.407e-04
+epoch: [237/500] | loss 0: 0.016755 | loss 1: 0.000000 | current lr: 7.373e-04
+| loss 0: 1.675e-02| val metric 0: 0.004735 | best val: 0.004289 at epoch 226 | current lr: 7.373e-04
+epoch: [238/500] | loss 0: 0.016383 | loss 1: 0.000000 | current lr: 7.338e-04
+| loss 0: 1.638e-02| val metric 0: 0.005508 | best val: 0.004289 at epoch 226 | current lr: 7.338e-04
+epoch: [239/500] | loss 0: 0.014432 | loss 1: 0.000000 | current lr: 7.303e-04
+| loss 0: 1.443e-02| val metric 0: 0.004293 | best val: 0.004289 at epoch 226 | current lr: 7.303e-04
+epoch: [240/500] | loss 0: 0.013898 | loss 1: 0.000000 | current lr: 7.268e-04
+| loss 0: 1.390e-02| val metric 0: 0.006514 | best val: 0.004289 at epoch 226 | current lr: 7.268e-04
+epoch: [241/500] | loss 0: 0.014991 | loss 1: 0.000000 | current lr: 7.233e-04
+| loss 0: 1.499e-02| val metric 0: 0.006151 | best val: 0.004289 at epoch 226 | current lr: 7.233e-04
+epoch: [242/500] | loss 0: 0.014105 | loss 1: 0.000000 | current lr: 7.198e-04
+| loss 0: 1.411e-02| val metric 0: 0.007966 | best val: 0.004289 at epoch 226 | current lr: 7.198e-04
+epoch: [243/500] | loss 0: 0.020943 | loss 1: 0.000000 | current lr: 7.163e-04
+| loss 0: 2.094e-02| val metric 0: 0.008187 | best val: 0.004289 at epoch 226 | current lr: 7.163e-04
+epoch: [244/500] | loss 0: 0.025330 | loss 1: 0.000000 | current lr: 7.127e-04
+| loss 0: 2.533e-02| val metric 0: 0.010433 | best val: 0.004289 at epoch 226 | current lr: 7.127e-04
+epoch: [245/500] | loss 0: 0.022362 | loss 1: 0.000000 | current lr: 7.092e-04
+| loss 0: 2.236e-02| val metric 0: 0.011972 | best val: 0.004289 at epoch 226 | current lr: 7.092e-04
+epoch: [246/500] | loss 0: 0.024817 | loss 1: 0.000000 | current lr: 7.056e-04
+| loss 0: 2.482e-02| val metric 0: 0.008198 | best val: 0.004289 at epoch 226 | current lr: 7.056e-04
+epoch: [247/500] | loss 0: 0.022267 | loss 1: 0.000000 | current lr: 7.020e-04
+| loss 0: 2.227e-02| val metric 0: 0.005350 | best val: 0.004289 at epoch 226 | current lr: 7.020e-04
+epoch: [248/500] | loss 0: 0.017512 | loss 1: 0.000000 | current lr: 6.984e-04
+| loss 0: 1.751e-02| val metric 0: 0.012817 | best val: 0.004289 at epoch 226 | current lr: 6.984e-04
+epoch: [249/500] | loss 0: 0.021674 | loss 1: 0.000000 | current lr: 6.948e-04
+| loss 0: 2.167e-02| val metric 0: 0.005726 | best val: 0.004289 at epoch 226 | current lr: 6.948e-04
+epoch: [250/500] | loss 0: 0.016814 | loss 1: 0.000000 | current lr: 6.912e-04
+| loss 0: 1.681e-02| val metric 0: 0.010902 | best val: 0.004289 at epoch 226 | current lr: 6.912e-04
+epoch: [251/500] | loss 0: 0.016729 | loss 1: 0.000000 | current lr: 6.875e-04
+| loss 0: 1.673e-02| val metric 0: 0.004928 | best val: 0.004289 at epoch 226 | current lr: 6.875e-04
+epoch: [252/500] | loss 0: 0.017341 | loss 1: 0.000000 | current lr: 6.839e-04
+| loss 0: 1.734e-02| val metric 0: 0.008480 | best val: 0.004289 at epoch 226 | current lr: 6.839e-04
+epoch: [253/500] | loss 0: 0.014885 | loss 1: 0.000000 | current lr: 6.802e-04
+| loss 0: 1.489e-02| val metric 0: 0.006351 | best val: 0.004289 at epoch 226 | current lr: 6.802e-04
+epoch: [254/500] | loss 0: 0.012147 | loss 1: 0.000000 | current lr: 6.766e-04
+| loss 0: 1.215e-02| val metric 0: 0.003360 | best val: 0.003360 at epoch 254 | current lr: 6.766e-04
+epoch: [255/500] | loss 0: 0.014747 | loss 1: 0.000000 | current lr: 6.729e-04
+| loss 0: 1.475e-02| val metric 0: 0.005655 | best val: 0.003360 at epoch 254 | current lr: 6.729e-04
+epoch: [256/500] | loss 0: 0.014497 | loss 1: 0.000000 | current lr: 6.692e-04
+| loss 0: 1.450e-02| val metric 0: 0.003887 | best val: 0.003360 at epoch 254 | current lr: 6.692e-04
+epoch: [257/500] | loss 0: 0.013472 | loss 1: 0.000000 | current lr: 6.655e-04
+| loss 0: 1.347e-02| val metric 0: 0.009355 | best val: 0.003360 at epoch 254 | current lr: 6.655e-04
+epoch: [258/500] | loss 0: 0.020856 | loss 1: 0.000000 | current lr: 6.618e-04
+| loss 0: 2.086e-02| val metric 0: 0.009022 | best val: 0.003360 at epoch 254 | current lr: 6.618e-04
+epoch: [259/500] | loss 0: 0.016150 | loss 1: 0.000000 | current lr: 6.581e-04
+| loss 0: 1.615e-02| val metric 0: 0.004223 | best val: 0.003360 at epoch 254 | current lr: 6.581e-04
+epoch: [260/500] | loss 0: 0.011630 | loss 1: 0.000000 | current lr: 6.543e-04
+| loss 0: 1.163e-02| val metric 0: 0.004438 | best val: 0.003360 at epoch 254 | current lr: 6.543e-04
+epoch: [261/500] | loss 0: 0.014444 | loss 1: 0.000000 | current lr: 6.506e-04
+| loss 0: 1.444e-02| val metric 0: 0.006998 | best val: 0.003360 at epoch 254 | current lr: 6.506e-04
+epoch: [262/500] | loss 0: 0.018027 | loss 1: 0.000000 | current lr: 6.468e-04
+| loss 0: 1.803e-02| val metric 0: 0.007108 | best val: 0.003360 at epoch 254 | current lr: 6.468e-04
+epoch: [263/500] | loss 0: 0.018930 | loss 1: 0.000000 | current lr: 6.431e-04
+| loss 0: 1.893e-02| val metric 0: 0.005084 | best val: 0.003360 at epoch 254 | current lr: 6.431e-04
+epoch: [264/500] | loss 0: 0.015180 | loss 1: 0.000000 | current lr: 6.393e-04
+| loss 0: 1.518e-02| val metric 0: 0.005051 | best val: 0.003360 at epoch 254 | current lr: 6.393e-04
+epoch: [265/500] | loss 0: 0.015549 | loss 1: 0.000000 | current lr: 6.355e-04
+| loss 0: 1.555e-02| val metric 0: 0.006064 | best val: 0.003360 at epoch 254 | current lr: 6.355e-04
+epoch: [266/500] | loss 0: 0.017286 | loss 1: 0.000000 | current lr: 6.317e-04
+| loss 0: 1.729e-02| val metric 0: 0.010127 | best val: 0.003360 at epoch 254 | current lr: 6.317e-04
+epoch: [267/500] | loss 0: 0.018541 | loss 1: 0.000000 | current lr: 6.280e-04
+| loss 0: 1.854e-02| val metric 0: 0.006603 | best val: 0.003360 at epoch 254 | current lr: 6.280e-04
+epoch: [268/500] | loss 0: 0.013416 | loss 1: 0.000000 | current lr: 6.242e-04
+| loss 0: 1.342e-02| val metric 0: 0.005006 | best val: 0.003360 at epoch 254 | current lr: 6.242e-04
+epoch: [269/500] | loss 0: 0.011536 | loss 1: 0.000000 | current lr: 6.203e-04
+| loss 0: 1.154e-02| val metric 0: 0.006890 | best val: 0.003360 at epoch 254 | current lr: 6.203e-04
+epoch: [270/500] | loss 0: 0.013738 | loss 1: 0.000000 | current lr: 6.165e-04
+| loss 0: 1.374e-02| val metric 0: 0.007288 | best val: 0.003360 at epoch 254 | current lr: 6.165e-04
+epoch: [271/500] | loss 0: 0.013364 | loss 1: 0.000000 | current lr: 6.127e-04
+| loss 0: 1.336e-02| val metric 0: 0.004049 | best val: 0.003360 at epoch 254 | current lr: 6.127e-04
+epoch: [272/500] | loss 0: 0.014698 | loss 1: 0.000000 | current lr: 6.089e-04
+| loss 0: 1.470e-02| val metric 0: 0.005508 | best val: 0.003360 at epoch 254 | current lr: 6.089e-04
+epoch: [273/500] | loss 0: 0.011692 | loss 1: 0.000000 | current lr: 6.050e-04
+| loss 0: 1.169e-02| val metric 0: 0.007452 | best val: 0.003360 at epoch 254 | current lr: 6.050e-04
+epoch: [274/500] | loss 0: 0.017459 | loss 1: 0.000000 | current lr: 6.012e-04
+| loss 0: 1.746e-02| val metric 0: 0.007048 | best val: 0.003360 at epoch 254 | current lr: 6.012e-04
+epoch: [275/500] | loss 0: 0.014534 | loss 1: 0.000000 | current lr: 5.974e-04
+| loss 0: 1.453e-02| val metric 0: 0.005422 | best val: 0.003360 at epoch 254 | current lr: 5.974e-04
+epoch: [276/500] | loss 0: 0.012106 | loss 1: 0.000000 | current lr: 5.935e-04
+| loss 0: 1.211e-02| val metric 0: 0.003987 | best val: 0.003360 at epoch 254 | current lr: 5.935e-04
+epoch: [277/500] | loss 0: 0.015502 | loss 1: 0.000000 | current lr: 5.896e-04
+| loss 0: 1.550e-02| val metric 0: 0.009574 | best val: 0.003360 at epoch 254 | current lr: 5.896e-04
+epoch: [278/500] | loss 0: 0.018702 | loss 1: 0.000000 | current lr: 5.858e-04
+| loss 0: 1.870e-02| val metric 0: 0.004618 | best val: 0.003360 at epoch 254 | current lr: 5.858e-04
+epoch: [279/500] | loss 0: 0.016770 | loss 1: 0.000000 | current lr: 5.819e-04
+| loss 0: 1.677e-02| val metric 0: 0.006971 | best val: 0.003360 at epoch 254 | current lr: 5.819e-04
+epoch: [280/500] | loss 0: 0.015052 | loss 1: 0.000000 | current lr: 5.780e-04
+| loss 0: 1.505e-02| val metric 0: 0.006636 | best val: 0.003360 at epoch 254 | current lr: 5.780e-04
+epoch: [281/500] | loss 0: 0.014136 | loss 1: 0.000000 | current lr: 5.741e-04
+| loss 0: 1.414e-02| val metric 0: 0.008075 | best val: 0.003360 at epoch 254 | current lr: 5.741e-04
+epoch: [282/500] | loss 0: 0.019439 | loss 1: 0.000000 | current lr: 5.703e-04
+| loss 0: 1.944e-02| val metric 0: 0.007394 | best val: 0.003360 at epoch 254 | current lr: 5.703e-04
+epoch: [283/500] | loss 0: 0.013210 | loss 1: 0.000000 | current lr: 5.664e-04
+| loss 0: 1.321e-02| val metric 0: 0.003311 | best val: 0.003311 at epoch 283 | current lr: 5.664e-04
+epoch: [284/500] | loss 0: 0.017352 | loss 1: 0.000000 | current lr: 5.625e-04
+| loss 0: 1.735e-02| val metric 0: 0.006561 | best val: 0.003311 at epoch 283 | current lr: 5.625e-04
+epoch: [285/500] | loss 0: 0.017079 | loss 1: 0.000000 | current lr: 5.586e-04
+| loss 0: 1.708e-02| val metric 0: 0.007561 | best val: 0.003311 at epoch 283 | current lr: 5.586e-04
+epoch: [286/500] | loss 0: 0.018242 | loss 1: 0.000000 | current lr: 5.547e-04
+| loss 0: 1.824e-02| val metric 0: 0.007167 | best val: 0.003311 at epoch 283 | current lr: 5.547e-04
+epoch: [287/500] | loss 0: 0.015324 | loss 1: 0.000000 | current lr: 5.508e-04
+| loss 0: 1.532e-02| val metric 0: 0.002284 | best val: 0.002284 at epoch 287 | current lr: 5.508e-04
+epoch: [288/500] | loss 0: 0.009103 | loss 1: 0.000000 | current lr: 5.469e-04
+| loss 0: 9.103e-03| val metric 0: 0.002909 | best val: 0.002284 at epoch 287 | current lr: 5.469e-04
+epoch: [289/500] | loss 0: 0.009936 | loss 1: 0.000000 | current lr: 5.429e-04
+| loss 0: 9.936e-03| val metric 0: 0.004500 | best val: 0.002284 at epoch 287 | current lr: 5.429e-04
+epoch: [290/500] | loss 0: 0.010389 | loss 1: 0.000000 | current lr: 5.390e-04
+| loss 0: 1.039e-02| val metric 0: 0.004679 | best val: 0.002284 at epoch 287 | current lr: 5.390e-04
+epoch: [291/500] | loss 0: 0.011933 | loss 1: 0.000000 | current lr: 5.351e-04
+| loss 0: 1.193e-02| val metric 0: 0.005692 | best val: 0.002284 at epoch 287 | current lr: 5.351e-04
+epoch: [292/500] | loss 0: 0.013827 | loss 1: 0.000000 | current lr: 5.312e-04
+| loss 0: 1.383e-02| val metric 0: 0.003676 | best val: 0.002284 at epoch 287 | current lr: 5.312e-04
+epoch: [293/500] | loss 0: 0.011083 | loss 1: 0.000000 | current lr: 5.273e-04
+| loss 0: 1.108e-02| val metric 0: 0.005418 | best val: 0.002284 at epoch 287 | current lr: 5.273e-04
+epoch: [294/500] | loss 0: 0.012639 | loss 1: 0.000000 | current lr: 5.234e-04
+| loss 0: 1.264e-02| val metric 0: 0.004486 | best val: 0.002284 at epoch 287 | current lr: 5.234e-04
+epoch: [295/500] | loss 0: 0.009962 | loss 1: 0.000000 | current lr: 5.194e-04
+| loss 0: 9.962e-03| val metric 0: 0.003319 | best val: 0.002284 at epoch 287 | current lr: 5.194e-04
+epoch: [296/500] | loss 0: 0.009639 | loss 1: 0.000000 | current lr: 5.155e-04
+| loss 0: 9.639e-03| val metric 0: 0.003270 | best val: 0.002284 at epoch 287 | current lr: 5.155e-04
+epoch: [297/500] | loss 0: 0.009164 | loss 1: 0.000000 | current lr: 5.116e-04
+| loss 0: 9.164e-03| val metric 0: 0.004106 | best val: 0.002284 at epoch 287 | current lr: 5.116e-04
+epoch: [298/500] | loss 0: 0.009682 | loss 1: 0.000000 | current lr: 5.077e-04
+| loss 0: 9.682e-03| val metric 0: 0.002857 | best val: 0.002284 at epoch 287 | current lr: 5.077e-04
+epoch: [299/500] | loss 0: 0.011644 | loss 1: 0.000000 | current lr: 5.037e-04
+| loss 0: 1.164e-02| val metric 0: 0.006797 | best val: 0.002284 at epoch 287 | current lr: 5.037e-04
+epoch: [300/500] | loss 0: 0.015387 | loss 1: 0.000000 | current lr: 4.998e-04
+| loss 0: 1.539e-02| val metric 0: 0.003766 | best val: 0.002284 at epoch 287 | current lr: 4.998e-04
+epoch: [301/500] | loss 0: 0.012277 | loss 1: 0.000000 | current lr: 4.959e-04
+| loss 0: 1.228e-02| val metric 0: 0.002644 | best val: 0.002284 at epoch 287 | current lr: 4.959e-04
+epoch: [302/500] | loss 0: 0.007688 | loss 1: 0.000000 | current lr: 4.920e-04
+| loss 0: 7.688e-03| val metric 0: 0.001880 | best val: 0.001880 at epoch 302 | current lr: 4.920e-04
+epoch: [303/500] | loss 0: 0.008960 | loss 1: 0.000000 | current lr: 4.880e-04
+| loss 0: 8.960e-03| val metric 0: 0.004579 | best val: 0.001880 at epoch 302 | current lr: 4.880e-04
+epoch: [304/500] | loss 0: 0.010378 | loss 1: 0.000000 | current lr: 4.841e-04
+| loss 0: 1.038e-02| val metric 0: 0.003651 | best val: 0.001880 at epoch 302 | current lr: 4.841e-04
+epoch: [305/500] | loss 0: 0.009672 | loss 1: 0.000000 | current lr: 4.802e-04
+| loss 0: 9.672e-03| val metric 0: 0.005572 | best val: 0.001880 at epoch 302 | current lr: 4.802e-04
+epoch: [306/500] | loss 0: 0.014442 | loss 1: 0.000000 | current lr: 4.763e-04
+| loss 0: 1.444e-02| val metric 0: 0.005927 | best val: 0.001880 at epoch 302 | current lr: 4.763e-04
+epoch: [307/500] | loss 0: 0.011953 | loss 1: 0.000000 | current lr: 4.723e-04
+| loss 0: 1.195e-02| val metric 0: 0.005202 | best val: 0.001880 at epoch 302 | current lr: 4.723e-04
+epoch: [308/500] | loss 0: 0.013811 | loss 1: 0.000000 | current lr: 4.684e-04
+| loss 0: 1.381e-02| val metric 0: 0.006277 | best val: 0.001880 at epoch 302 | current lr: 4.684e-04
+epoch: [309/500] | loss 0: 0.014373 | loss 1: 0.000000 | current lr: 4.645e-04
+| loss 0: 1.437e-02| val metric 0: 0.006452 | best val: 0.001880 at epoch 302 | current lr: 4.645e-04
+epoch: [310/500] | loss 0: 0.013402 | loss 1: 0.000000 | current lr: 4.606e-04
+| loss 0: 1.340e-02| val metric 0: 0.003404 | best val: 0.001880 at epoch 302 | current lr: 4.606e-04
+epoch: [311/500] | loss 0: 0.011695 | loss 1: 0.000000 | current lr: 4.567e-04
+| loss 0: 1.169e-02| val metric 0: 0.003850 | best val: 0.001880 at epoch 302 | current lr: 4.567e-04
+epoch: [312/500] | loss 0: 0.009735 | loss 1: 0.000000 | current lr: 4.528e-04
+| loss 0: 9.735e-03| val metric 0: 0.004367 | best val: 0.001880 at epoch 302 | current lr: 4.528e-04
+epoch: [313/500] | loss 0: 0.010078 | loss 1: 0.000000 | current lr: 4.488e-04
+| loss 0: 1.008e-02| val metric 0: 0.002857 | best val: 0.001880 at epoch 302 | current lr: 4.488e-04
+epoch: [314/500] | loss 0: 0.006998 | loss 1: 0.000000 | current lr: 4.449e-04
+| loss 0: 6.998e-03| val metric 0: 0.003328 | best val: 0.001880 at epoch 302 | current lr: 4.449e-04
+epoch: [315/500] | loss 0: 0.007882 | loss 1: 0.000000 | current lr: 4.410e-04
+| loss 0: 7.882e-03| val metric 0: 0.002699 | best val: 0.001880 at epoch 302 | current lr: 4.410e-04
+epoch: [316/500] | loss 0: 0.011113 | loss 1: 0.000000 | current lr: 4.371e-04
+| loss 0: 1.111e-02| val metric 0: 0.005938 | best val: 0.001880 at epoch 302 | current lr: 4.371e-04
+epoch: [317/500] | loss 0: 0.009563 | loss 1: 0.000000 | current lr: 4.332e-04
+| loss 0: 9.563e-03| val metric 0: 0.002984 | best val: 0.001880 at epoch 302 | current lr: 4.332e-04
+epoch: [318/500] | loss 0: 0.009826 | loss 1: 0.000000 | current lr: 4.294e-04
+| loss 0: 9.826e-03| val metric 0: 0.004331 | best val: 0.001880 at epoch 302 | current lr: 4.294e-04
+epoch: [319/500] | loss 0: 0.010941 | loss 1: 0.000000 | current lr: 4.255e-04
+| loss 0: 1.094e-02| val metric 0: 0.004076 | best val: 0.001880 at epoch 302 | current lr: 4.255e-04
+epoch: [320/500] | loss 0: 0.010662 | loss 1: 0.000000 | current lr: 4.216e-04
+| loss 0: 1.066e-02| val metric 0: 0.002793 | best val: 0.001880 at epoch 302 | current lr: 4.216e-04
+epoch: [321/500] | loss 0: 0.010278 | loss 1: 0.000000 | current lr: 4.177e-04
+| loss 0: 1.028e-02| val metric 0: 0.004313 | best val: 0.001880 at epoch 302 | current lr: 4.177e-04
+epoch: [322/500] | loss 0: 0.010314 | loss 1: 0.000000 | current lr: 4.138e-04
+| loss 0: 1.031e-02| val metric 0: 0.002825 | best val: 0.001880 at epoch 302 | current lr: 4.138e-04
+epoch: [323/500] | loss 0: 0.009221 | loss 1: 0.000000 | current lr: 4.100e-04
+| loss 0: 9.221e-03| val metric 0: 0.002693 | best val: 0.001880 at epoch 302 | current lr: 4.100e-04
+epoch: [324/500] | loss 0: 0.009866 | loss 1: 0.000000 | current lr: 4.061e-04
+| loss 0: 9.866e-03| val metric 0: 0.003008 | best val: 0.001880 at epoch 302 | current lr: 4.061e-04
+epoch: [325/500] | loss 0: 0.008261 | loss 1: 0.000000 | current lr: 4.023e-04
+| loss 0: 8.261e-03| val metric 0: 0.003486 | best val: 0.001880 at epoch 302 | current lr: 4.023e-04
+epoch: [326/500] | loss 0: 0.008963 | loss 1: 0.000000 | current lr: 3.984e-04
+| loss 0: 8.963e-03| val metric 0: 0.003755 | best val: 0.001880 at epoch 302 | current lr: 3.984e-04
+epoch: [327/500] | loss 0: 0.008693 | loss 1: 0.000000 | current lr: 3.946e-04
+| loss 0: 8.693e-03| val metric 0: 0.002571 | best val: 0.001880 at epoch 302 | current lr: 3.946e-04
+epoch: [328/500] | loss 0: 0.006687 | loss 1: 0.000000 | current lr: 3.907e-04
+| loss 0: 6.687e-03| val metric 0: 0.002648 | best val: 0.001880 at epoch 302 | current lr: 3.907e-04
+epoch: [329/500] | loss 0: 0.006468 | loss 1: 0.000000 | current lr: 3.869e-04
+| loss 0: 6.468e-03| val metric 0: 0.002085 | best val: 0.001880 at epoch 302 | current lr: 3.869e-04
+epoch: [330/500] | loss 0: 0.009015 | loss 1: 0.000000 | current lr: 3.831e-04
+| loss 0: 9.015e-03| val metric 0: 0.003013 | best val: 0.001880 at epoch 302 | current lr: 3.831e-04
+epoch: [331/500] | loss 0: 0.008644 | loss 1: 0.000000 | current lr: 3.793e-04
+| loss 0: 8.644e-03| val metric 0: 0.002383 | best val: 0.001880 at epoch 302 | current lr: 3.793e-04
+epoch: [332/500] | loss 0: 0.009704 | loss 1: 0.000000 | current lr: 3.755e-04
+| loss 0: 9.704e-03| val metric 0: 0.003960 | best val: 0.001880 at epoch 302 | current lr: 3.755e-04
+epoch: [333/500] | loss 0: 0.009664 | loss 1: 0.000000 | current lr: 3.717e-04
+| loss 0: 9.664e-03| val metric 0: 0.002854 | best val: 0.001880 at epoch 302 | current lr: 3.717e-04
+epoch: [334/500] | loss 0: 0.008052 | loss 1: 0.000000 | current lr: 3.679e-04
+| loss 0: 8.052e-03| val metric 0: 0.002940 | best val: 0.001880 at epoch 302 | current lr: 3.679e-04
+epoch: [335/500] | loss 0: 0.008722 | loss 1: 0.000000 | current lr: 3.641e-04
+| loss 0: 8.722e-03| val metric 0: 0.003329 | best val: 0.001880 at epoch 302 | current lr: 3.641e-04
+epoch: [336/500] | loss 0: 0.008507 | loss 1: 0.000000 | current lr: 3.603e-04
+| loss 0: 8.507e-03| val metric 0: 0.002692 | best val: 0.001880 at epoch 302 | current lr: 3.603e-04
+epoch: [337/500] | loss 0: 0.007710 | loss 1: 0.000000 | current lr: 3.565e-04
+| loss 0: 7.710e-03| val metric 0: 0.003467 | best val: 0.001880 at epoch 302 | current lr: 3.565e-04
+epoch: [338/500] | loss 0: 0.008996 | loss 1: 0.000000 | current lr: 3.528e-04
+| loss 0: 8.996e-03| val metric 0: 0.004588 | best val: 0.001880 at epoch 302 | current lr: 3.528e-04
+epoch: [339/500] | loss 0: 0.008496 | loss 1: 0.000000 | current lr: 3.490e-04
+| loss 0: 8.496e-03| val metric 0: 0.002571 | best val: 0.001880 at epoch 302 | current lr: 3.490e-04
+epoch: [340/500] | loss 0: 0.007773 | loss 1: 0.000000 | current lr: 3.453e-04
+| loss 0: 7.773e-03| val metric 0: 0.002992 | best val: 0.001880 at epoch 302 | current lr: 3.453e-04
+epoch: [341/500] | loss 0: 0.009121 | loss 1: 0.000000 | current lr: 3.416e-04
+| loss 0: 9.121e-03| val metric 0: 0.003158 | best val: 0.001880 at epoch 302 | current lr: 3.416e-04
+epoch: [342/500] | loss 0: 0.008117 | loss 1: 0.000000 | current lr: 3.379e-04
+| loss 0: 8.117e-03| val metric 0: 0.003129 | best val: 0.001880 at epoch 302 | current lr: 3.379e-04
+epoch: [343/500] | loss 0: 0.006326 | loss 1: 0.000000 | current lr: 3.341e-04
+| loss 0: 6.326e-03| val metric 0: 0.002489 | best val: 0.001880 at epoch 302 | current lr: 3.341e-04
+epoch: [344/500] | loss 0: 0.004969 | loss 1: 0.000000 | current lr: 3.304e-04
+| loss 0: 4.969e-03| val metric 0: 0.001780 | best val: 0.001780 at epoch 344 | current lr: 3.304e-04
+epoch: [345/500] | loss 0: 0.005419 | loss 1: 0.000000 | current lr: 3.268e-04
+| loss 0: 5.419e-03| val metric 0: 0.002337 | best val: 0.001780 at epoch 344 | current lr: 3.268e-04
+epoch: [346/500] | loss 0: 0.005883 | loss 1: 0.000000 | current lr: 3.231e-04
+| loss 0: 5.883e-03| val metric 0: 0.002304 | best val: 0.001780 at epoch 344 | current lr: 3.231e-04
+epoch: [347/500] | loss 0: 0.008200 | loss 1: 0.000000 | current lr: 3.194e-04
+| loss 0: 8.200e-03| val metric 0: 0.003236 | best val: 0.001780 at epoch 344 | current lr: 3.194e-04
+epoch: [348/500] | loss 0: 0.008988 | loss 1: 0.000000 | current lr: 3.158e-04
+| loss 0: 8.988e-03| val metric 0: 0.002798 | best val: 0.001780 at epoch 344 | current lr: 3.158e-04
+epoch: [349/500] | loss 0: 0.007512 | loss 1: 0.000000 | current lr: 3.121e-04
+| loss 0: 7.512e-03| val metric 0: 0.002187 | best val: 0.001780 at epoch 344 | current lr: 3.121e-04
+epoch: [350/500] | loss 0: 0.006888 | loss 1: 0.000000 | current lr: 3.085e-04
+| loss 0: 6.888e-03| val metric 0: 0.002381 | best val: 0.001780 at epoch 344 | current lr: 3.085e-04
+epoch: [351/500] | loss 0: 0.005481 | loss 1: 0.000000 | current lr: 3.049e-04
+| loss 0: 5.481e-03| val metric 0: 0.001771 | best val: 0.001771 at epoch 351 | current lr: 3.049e-04
+epoch: [352/500] | loss 0: 0.005121 | loss 1: 0.000000 | current lr: 3.012e-04
+| loss 0: 5.121e-03| val metric 0: 0.002061 | best val: 0.001771 at epoch 351 | current lr: 3.012e-04
+epoch: [353/500] | loss 0: 0.005459 | loss 1: 0.000000 | current lr: 2.976e-04
+| loss 0: 5.459e-03| val metric 0: 0.003147 | best val: 0.001771 at epoch 351 | current lr: 2.976e-04
+epoch: [354/500] | loss 0: 0.006808 | loss 1: 0.000000 | current lr: 2.941e-04
+| loss 0: 6.808e-03| val metric 0: 0.002847 | best val: 0.001771 at epoch 351 | current lr: 2.941e-04
+epoch: [355/500] | loss 0: 0.007510 | loss 1: 0.000000 | current lr: 2.905e-04
+| loss 0: 7.510e-03| val metric 0: 0.001930 | best val: 0.001771 at epoch 351 | current lr: 2.905e-04
+epoch: [356/500] | loss 0: 0.006632 | loss 1: 0.000000 | current lr: 2.869e-04
+| loss 0: 6.632e-03| val metric 0: 0.001553 | best val: 0.001553 at epoch 356 | current lr: 2.869e-04
+epoch: [357/500] | loss 0: 0.006244 | loss 1: 0.000000 | current lr: 2.834e-04
+| loss 0: 6.244e-03| val metric 0: 0.001927 | best val: 0.001553 at epoch 356 | current lr: 2.834e-04
+epoch: [358/500] | loss 0: 0.005450 | loss 1: 0.000000 | current lr: 2.799e-04
+| loss 0: 5.450e-03| val metric 0: 0.002687 | best val: 0.001553 at epoch 356 | current lr: 2.799e-04
+epoch: [359/500] | loss 0: 0.005446 | loss 1: 0.000000 | current lr: 2.763e-04
+| loss 0: 5.446e-03| val metric 0: 0.002001 | best val: 0.001553 at epoch 356 | current lr: 2.763e-04
+epoch: [360/500] | loss 0: 0.005229 | loss 1: 0.000000 | current lr: 2.728e-04
+| loss 0: 5.229e-03| val metric 0: 0.003002 | best val: 0.001553 at epoch 356 | current lr: 2.728e-04
+epoch: [361/500] | loss 0: 0.005745 | loss 1: 0.000000 | current lr: 2.693e-04
+| loss 0: 5.745e-03| val metric 0: 0.003344 | best val: 0.001553 at epoch 356 | current lr: 2.693e-04
+epoch: [362/500] | loss 0: 0.006016 | loss 1: 0.000000 | current lr: 2.659e-04
+| loss 0: 6.016e-03| val metric 0: 0.002101 | best val: 0.001553 at epoch 356 | current lr: 2.659e-04
+epoch: [363/500] | loss 0: 0.006147 | loss 1: 0.000000 | current lr: 2.624e-04
+| loss 0: 6.147e-03| val metric 0: 0.002422 | best val: 0.001553 at epoch 356 | current lr: 2.624e-04
+epoch: [364/500] | loss 0: 0.005562 | loss 1: 0.000000 | current lr: 2.590e-04
+| loss 0: 5.562e-03| val metric 0: 0.001907 | best val: 0.001553 at epoch 356 | current lr: 2.590e-04
+epoch: [365/500] | loss 0: 0.005737 | loss 1: 0.000000 | current lr: 2.555e-04
+| loss 0: 5.737e-03| val metric 0: 0.002894 | best val: 0.001553 at epoch 356 | current lr: 2.555e-04
+epoch: [366/500] | loss 0: 0.006296 | loss 1: 0.000000 | current lr: 2.521e-04
+| loss 0: 6.296e-03| val metric 0: 0.001963 | best val: 0.001553 at epoch 356 | current lr: 2.521e-04
+epoch: [367/500] | loss 0: 0.004813 | loss 1: 0.000000 | current lr: 2.487e-04
+| loss 0: 4.813e-03| val metric 0: 0.001638 | best val: 0.001553 at epoch 356 | current lr: 2.487e-04
+epoch: [368/500] | loss 0: 0.005362 | loss 1: 0.000000 | current lr: 2.453e-04
+| loss 0: 5.362e-03| val metric 0: 0.001963 | best val: 0.001553 at epoch 356 | current lr: 2.453e-04
+epoch: [369/500] | loss 0: 0.005193 | loss 1: 0.000000 | current lr: 2.419e-04
+| loss 0: 5.193e-03| val metric 0: 0.001810 | best val: 0.001553 at epoch 356 | current lr: 2.419e-04
+epoch: [370/500] | loss 0: 0.004103 | loss 1: 0.000000 | current lr: 2.386e-04
+| loss 0: 4.103e-03| val metric 0: 0.002152 | best val: 0.001553 at epoch 356 | current lr: 2.386e-04
+epoch: [371/500] | loss 0: 0.005479 | loss 1: 0.000000 | current lr: 2.352e-04
+| loss 0: 5.479e-03| val metric 0: 0.002653 | best val: 0.001553 at epoch 356 | current lr: 2.352e-04
+epoch: [372/500] | loss 0: 0.004595 | loss 1: 0.000000 | current lr: 2.319e-04
+| loss 0: 4.595e-03| val metric 0: 0.001234 | best val: 0.001234 at epoch 372 | current lr: 2.319e-04
+epoch: [373/500] | loss 0: 0.004937 | loss 1: 0.000000 | current lr: 2.286e-04
+| loss 0: 4.937e-03| val metric 0: 0.001781 | best val: 0.001234 at epoch 372 | current lr: 2.286e-04
+epoch: [374/500] | loss 0: 0.005694 | loss 1: 0.000000 | current lr: 2.253e-04
+| loss 0: 5.694e-03| val metric 0: 0.002286 | best val: 0.001234 at epoch 372 | current lr: 2.253e-04
+epoch: [375/500] | loss 0: 0.005043 | loss 1: 0.000000 | current lr: 2.221e-04
+| loss 0: 5.043e-03| val metric 0: 0.001862 | best val: 0.001234 at epoch 372 | current lr: 2.221e-04
+epoch: [376/500] | loss 0: 0.005487 | loss 1: 0.000000 | current lr: 2.188e-04
+| loss 0: 5.487e-03| val metric 0: 0.002687 | best val: 0.001234 at epoch 372 | current lr: 2.188e-04
+epoch: [377/500] | loss 0: 0.005553 | loss 1: 0.000000 | current lr: 2.156e-04
+| loss 0: 5.553e-03| val metric 0: 0.001917 | best val: 0.001234 at epoch 372 | current lr: 2.156e-04
+epoch: [378/500] | loss 0: 0.004251 | loss 1: 0.000000 | current lr: 2.123e-04
+| loss 0: 4.251e-03| val metric 0: 0.001433 | best val: 0.001234 at epoch 372 | current lr: 2.123e-04
+epoch: [379/500] | loss 0: 0.003741 | loss 1: 0.000000 | current lr: 2.091e-04
+| loss 0: 3.741e-03| val metric 0: 0.002261 | best val: 0.001234 at epoch 372 | current lr: 2.091e-04
+epoch: [380/500] | loss 0: 0.005272 | loss 1: 0.000000 | current lr: 2.059e-04
+| loss 0: 5.272e-03| val metric 0: 0.001835 | best val: 0.001234 at epoch 372 | current lr: 2.059e-04
+epoch: [381/500] | loss 0: 0.004188 | loss 1: 0.000000 | current lr: 2.028e-04
+| loss 0: 4.188e-03| val metric 0: 0.002143 | best val: 0.001234 at epoch 372 | current lr: 2.028e-04
+epoch: [382/500] | loss 0: 0.005361 | loss 1: 0.000000 | current lr: 1.996e-04
+| loss 0: 5.361e-03| val metric 0: 0.002243 | best val: 0.001234 at epoch 372 | current lr: 1.996e-04
+epoch: [383/500] | loss 0: 0.004081 | loss 1: 0.000000 | current lr: 1.965e-04
+| loss 0: 4.081e-03| val metric 0: 0.001106 | best val: 0.001106 at epoch 383 | current lr: 1.965e-04
+epoch: [384/500] | loss 0: 0.002761 | loss 1: 0.000000 | current lr: 1.934e-04
+| loss 0: 2.761e-03| val metric 0: 0.001065 | best val: 0.001065 at epoch 384 | current lr: 1.934e-04
+epoch: [385/500] | loss 0: 0.002437 | loss 1: 0.000000 | current lr: 1.903e-04
+| loss 0: 2.437e-03| val metric 0: 0.000889 | best val: 0.000889 at epoch 385 | current lr: 1.903e-04
+epoch: [386/500] | loss 0: 0.002406 | loss 1: 0.000000 | current lr: 1.872e-04
+| loss 0: 2.406e-03| val metric 0: 0.000843 | best val: 0.000843 at epoch 386 | current lr: 1.872e-04
+epoch: [387/500] | loss 0: 0.002482 | loss 1: 0.000000 | current lr: 1.842e-04
+| loss 0: 2.482e-03| val metric 0: 0.001093 | best val: 0.000843 at epoch 386 | current lr: 1.842e-04
+epoch: [388/500] | loss 0: 0.002508 | loss 1: 0.000000 | current lr: 1.811e-04
+| loss 0: 2.508e-03| val metric 0: 0.000993 | best val: 0.000843 at epoch 386 | current lr: 1.811e-04
+epoch: [389/500] | loss 0: 0.002317 | loss 1: 0.000000 | current lr: 1.781e-04
+| loss 0: 2.317e-03| val metric 0: 0.000954 | best val: 0.000843 at epoch 386 | current lr: 1.781e-04
+epoch: [390/500] | loss 0: 0.002536 | loss 1: 0.000000 | current lr: 1.751e-04
+| loss 0: 2.536e-03| val metric 0: 0.001086 | best val: 0.000843 at epoch 386 | current lr: 1.751e-04
+epoch: [391/500] | loss 0: 0.002592 | loss 1: 0.000000 | current lr: 1.722e-04
+| loss 0: 2.592e-03| val metric 0: 0.001281 | best val: 0.000843 at epoch 386 | current lr: 1.722e-04
+epoch: [392/500] | loss 0: 0.002824 | loss 1: 0.000000 | current lr: 1.692e-04
+| loss 0: 2.824e-03| val metric 0: 0.001205 | best val: 0.000843 at epoch 386 | current lr: 1.692e-04
+epoch: [393/500] | loss 0: 0.002805 | loss 1: 0.000000 | current lr: 1.663e-04
+| loss 0: 2.805e-03| val metric 0: 0.001122 | best val: 0.000843 at epoch 386 | current lr: 1.663e-04
+epoch: [394/500] | loss 0: 0.002246 | loss 1: 0.000000 | current lr: 1.633e-04
+| loss 0: 2.246e-03| val metric 0: 0.000990 | best val: 0.000843 at epoch 386 | current lr: 1.633e-04
+epoch: [395/500] | loss 0: 0.002299 | loss 1: 0.000000 | current lr: 1.605e-04
+| loss 0: 2.299e-03| val metric 0: 0.000889 | best val: 0.000843 at epoch 386 | current lr: 1.605e-04
+epoch: [396/500] | loss 0: 0.002182 | loss 1: 0.000000 | current lr: 1.576e-04
+| loss 0: 2.182e-03| val metric 0: 0.000904 | best val: 0.000843 at epoch 386 | current lr: 1.576e-04
+epoch: [397/500] | loss 0: 0.002115 | loss 1: 0.000000 | current lr: 1.547e-04
+| loss 0: 2.115e-03| val metric 0: 0.000781 | best val: 0.000781 at epoch 397 | current lr: 1.547e-04
+epoch: [398/500] | loss 0: 0.002345 | loss 1: 0.000000 | current lr: 1.519e-04
+| loss 0: 2.345e-03| val metric 0: 0.000737 | best val: 0.000737 at epoch 398 | current lr: 1.519e-04
+epoch: [399/500] | loss 0: 0.002557 | loss 1: 0.000000 | current lr: 1.491e-04
+| loss 0: 2.557e-03| val metric 0: 0.001292 | best val: 0.000737 at epoch 398 | current lr: 1.491e-04
+epoch: [400/500] | loss 0: 0.002941 | loss 1: 0.000000 | current lr: 1.463e-04
+| loss 0: 2.941e-03| val metric 0: 0.001037 | best val: 0.000737 at epoch 398 | current lr: 1.463e-04
+epoch: [401/500] | loss 0: 0.002286 | loss 1: 0.000000 | current lr: 1.435e-04
+| loss 0: 2.286e-03| val metric 0: 0.000734 | best val: 0.000734 at epoch 401 | current lr: 1.435e-04
+epoch: [402/500] | loss 0: 0.002166 | loss 1: 0.000000 | current lr: 1.408e-04
+| loss 0: 2.166e-03| val metric 0: 0.000930 | best val: 0.000734 at epoch 401 | current lr: 1.408e-04
+epoch: [403/500] | loss 0: 0.002587 | loss 1: 0.000000 | current lr: 1.381e-04
+| loss 0: 2.587e-03| val metric 0: 0.001069 | best val: 0.000734 at epoch 401 | current lr: 1.381e-04
+epoch: [404/500] | loss 0: 0.002476 | loss 1: 0.000000 | current lr: 1.354e-04
+| loss 0: 2.476e-03| val metric 0: 0.000775 | best val: 0.000734 at epoch 401 | current lr: 1.354e-04
+epoch: [405/500] | loss 0: 0.001987 | loss 1: 0.000000 | current lr: 1.327e-04
+| loss 0: 1.987e-03| val metric 0: 0.001036 | best val: 0.000734 at epoch 401 | current lr: 1.327e-04
+epoch: [406/500] | loss 0: 0.002008 | loss 1: 0.000000 | current lr: 1.301e-04
+| loss 0: 2.008e-03| val metric 0: 0.000882 | best val: 0.000734 at epoch 401 | current lr: 1.301e-04
+epoch: [407/500] | loss 0: 0.002316 | loss 1: 0.000000 | current lr: 1.274e-04
+| loss 0: 2.316e-03| val metric 0: 0.001436 | best val: 0.000734 at epoch 401 | current lr: 1.274e-04
+epoch: [408/500] | loss 0: 0.002677 | loss 1: 0.000000 | current lr: 1.248e-04
+| loss 0: 2.677e-03| val metric 0: 0.000938 | best val: 0.000734 at epoch 401 | current lr: 1.248e-04
+epoch: [409/500] | loss 0: 0.002415 | loss 1: 0.000000 | current lr: 1.222e-04
+| loss 0: 2.415e-03| val metric 0: 0.001027 | best val: 0.000734 at epoch 401 | current lr: 1.222e-04
+epoch: [410/500] | loss 0: 0.002417 | loss 1: 0.000000 | current lr: 1.197e-04
+| loss 0: 2.417e-03| val metric 0: 0.000864 | best val: 0.000734 at epoch 401 | current lr: 1.197e-04
+epoch: [411/500] | loss 0: 0.002528 | loss 1: 0.000000 | current lr: 1.171e-04
+| loss 0: 2.528e-03| val metric 0: 0.001058 | best val: 0.000734 at epoch 401 | current lr: 1.171e-04
+epoch: [412/500] | loss 0: 0.002535 | loss 1: 0.000000 | current lr: 1.146e-04
+| loss 0: 2.535e-03| val metric 0: 0.001066 | best val: 0.000734 at epoch 401 | current lr: 1.146e-04
+epoch: [413/500] | loss 0: 0.002707 | loss 1: 0.000000 | current lr: 1.121e-04
+| loss 0: 2.707e-03| val metric 0: 0.001287 | best val: 0.000734 at epoch 401 | current lr: 1.121e-04
+epoch: [414/500] | loss 0: 0.002678 | loss 1: 0.000000 | current lr: 1.097e-04
+| loss 0: 2.678e-03| val metric 0: 0.001483 | best val: 0.000734 at epoch 401 | current lr: 1.097e-04
+epoch: [415/500] | loss 0: 0.002938 | loss 1: 0.000000 | current lr: 1.072e-04
+| loss 0: 2.938e-03| val metric 0: 0.000971 | best val: 0.000734 at epoch 401 | current lr: 1.072e-04
+epoch: [416/500] | loss 0: 0.002554 | loss 1: 0.000000 | current lr: 1.048e-04
+| loss 0: 2.554e-03| val metric 0: 0.001250 | best val: 0.000734 at epoch 401 | current lr: 1.048e-04
+epoch: [417/500] | loss 0: 0.002239 | loss 1: 0.000000 | current lr: 1.024e-04
+| loss 0: 2.239e-03| val metric 0: 0.000680 | best val: 0.000680 at epoch 417 | current lr: 1.024e-04
+epoch: [418/500] | loss 0: 0.001742 | loss 1: 0.000000 | current lr: 1.000e-04
+| loss 0: 1.742e-03| val metric 0: 0.000724 | best val: 0.000680 at epoch 417 | current lr: 1.000e-04
+epoch: [419/500] | loss 0: 0.001873 | loss 1: 0.000000 | current lr: 9.770e-05
+| loss 0: 1.873e-03| val metric 0: 0.000754 | best val: 0.000680 at epoch 417 | current lr: 9.770e-05
+epoch: [420/500] | loss 0: 0.002090 | loss 1: 0.000000 | current lr: 9.538e-05
+| loss 0: 2.090e-03| val metric 0: 0.000950 | best val: 0.000680 at epoch 417 | current lr: 9.538e-05
+epoch: [421/500] | loss 0: 0.002052 | loss 1: 0.000000 | current lr: 9.308e-05
+| loss 0: 2.052e-03| val metric 0: 0.000779 | best val: 0.000680 at epoch 417 | current lr: 9.308e-05
+epoch: [422/500] | loss 0: 0.001873 | loss 1: 0.000000 | current lr: 9.081e-05
+| loss 0: 1.873e-03| val metric 0: 0.000807 | best val: 0.000680 at epoch 417 | current lr: 9.081e-05
+epoch: [423/500] | loss 0: 0.001993 | loss 1: 0.000000 | current lr: 8.857e-05
+| loss 0: 1.993e-03| val metric 0: 0.000782 | best val: 0.000680 at epoch 417 | current lr: 8.857e-05
+epoch: [424/500] | loss 0: 0.001867 | loss 1: 0.000000 | current lr: 8.635e-05
+| loss 0: 1.867e-03| val metric 0: 0.000596 | best val: 0.000596 at epoch 424 | current lr: 8.635e-05
+epoch: [425/500] | loss 0: 0.001741 | loss 1: 0.000000 | current lr: 8.416e-05
+| loss 0: 1.741e-03| val metric 0: 0.000759 | best val: 0.000596 at epoch 424 | current lr: 8.416e-05
+epoch: [426/500] | loss 0: 0.001870 | loss 1: 0.000000 | current lr: 8.199e-05
+| loss 0: 1.870e-03| val metric 0: 0.000692 | best val: 0.000596 at epoch 424 | current lr: 8.199e-05
+epoch: [427/500] | loss 0: 0.001715 | loss 1: 0.000000 | current lr: 7.985e-05
+| loss 0: 1.715e-03| val metric 0: 0.000598 | best val: 0.000596 at epoch 424 | current lr: 7.985e-05
+epoch: [428/500] | loss 0: 0.001441 | loss 1: 0.000000 | current lr: 7.773e-05
+| loss 0: 1.441e-03| val metric 0: 0.000574 | best val: 0.000574 at epoch 428 | current lr: 7.773e-05
+epoch: [429/500] | loss 0: 0.001367 | loss 1: 0.000000 | current lr: 7.564e-05
+| loss 0: 1.367e-03| val metric 0: 0.000554 | best val: 0.000554 at epoch 429 | current lr: 7.564e-05
+epoch: [430/500] | loss 0: 0.001320 | loss 1: 0.000000 | current lr: 7.358e-05
+| loss 0: 1.320e-03| val metric 0: 0.000538 | best val: 0.000538 at epoch 430 | current lr: 7.358e-05
+epoch: [431/500] | loss 0: 0.001307 | loss 1: 0.000000 | current lr: 7.154e-05
+| loss 0: 1.307e-03| val metric 0: 0.000535 | best val: 0.000535 at epoch 431 | current lr: 7.154e-05
+epoch: [432/500] | loss 0: 0.001297 | loss 1: 0.000000 | current lr: 6.953e-05
+| loss 0: 1.297e-03| val metric 0: 0.000529 | best val: 0.000529 at epoch 432 | current lr: 6.953e-05
+epoch: [433/500] | loss 0: 0.001290 | loss 1: 0.000000 | current lr: 6.754e-05
+| loss 0: 1.290e-03| val metric 0: 0.000526 | best val: 0.000526 at epoch 433 | current lr: 6.754e-05
+epoch: [434/500] | loss 0: 0.001285 | loss 1: 0.000000 | current lr: 6.559e-05
+| loss 0: 1.285e-03| val metric 0: 0.000526 | best val: 0.000526 at epoch 434 | current lr: 6.559e-05
+epoch: [435/500] | loss 0: 0.001281 | loss 1: 0.000000 | current lr: 6.366e-05
+| loss 0: 1.281e-03| val metric 0: 0.000523 | best val: 0.000523 at epoch 435 | current lr: 6.366e-05
+epoch: [436/500] | loss 0: 0.001283 | loss 1: 0.000000 | current lr: 6.175e-05
+| loss 0: 1.283e-03| val metric 0: 0.000526 | best val: 0.000523 at epoch 435 | current lr: 6.175e-05
+epoch: [437/500] | loss 0: 0.001291 | loss 1: 0.000000 | current lr: 5.988e-05
+| loss 0: 1.291e-03| val metric 0: 0.000535 | best val: 0.000523 at epoch 435 | current lr: 5.988e-05
+epoch: [438/500] | loss 0: 0.001296 | loss 1: 0.000000 | current lr: 5.803e-05
+| loss 0: 1.296e-03| val metric 0: 0.000520 | best val: 0.000520 at epoch 438 | current lr: 5.803e-05
+epoch: [439/500] | loss 0: 0.001262 | loss 1: 0.000000 | current lr: 5.620e-05
+| loss 0: 1.262e-03| val metric 0: 0.000513 | best val: 0.000513 at epoch 439 | current lr: 5.620e-05
+epoch: [440/500] | loss 0: 0.001252 | loss 1: 0.000000 | current lr: 5.441e-05
+| loss 0: 1.252e-03| val metric 0: 0.000513 | best val: 0.000513 at epoch 439 | current lr: 5.441e-05
+epoch: [441/500] | loss 0: 0.001251 | loss 1: 0.000000 | current lr: 5.264e-05
+| loss 0: 1.251e-03| val metric 0: 0.000508 | best val: 0.000508 at epoch 441 | current lr: 5.264e-05
+epoch: [442/500] | loss 0: 0.001244 | loss 1: 0.000000 | current lr: 5.090e-05
+| loss 0: 1.244e-03| val metric 0: 0.000507 | best val: 0.000507 at epoch 442 | current lr: 5.090e-05
+epoch: [443/500] | loss 0: 0.001235 | loss 1: 0.000000 | current lr: 4.919e-05
+| loss 0: 1.235e-03| val metric 0: 0.000505 | best val: 0.000505 at epoch 443 | current lr: 4.919e-05
+epoch: [444/500] | loss 0: 0.001230 | loss 1: 0.000000 | current lr: 4.750e-05
+| loss 0: 1.230e-03| val metric 0: 0.000503 | best val: 0.000503 at epoch 444 | current lr: 4.750e-05
+epoch: [445/500] | loss 0: 0.001226 | loss 1: 0.000000 | current lr: 4.585e-05
+| loss 0: 1.226e-03| val metric 0: 0.000503 | best val: 0.000503 at epoch 445 | current lr: 4.585e-05
+epoch: [446/500] | loss 0: 0.001222 | loss 1: 0.000000 | current lr: 4.422e-05
+| loss 0: 1.222e-03| val metric 0: 0.000501 | best val: 0.000501 at epoch 446 | current lr: 4.422e-05
+epoch: [447/500] | loss 0: 0.001219 | loss 1: 0.000000 | current lr: 4.262e-05
+| loss 0: 1.219e-03| val metric 0: 0.000500 | best val: 0.000500 at epoch 447 | current lr: 4.262e-05
+epoch: [448/500] | loss 0: 0.001216 | loss 1: 0.000000 | current lr: 4.104e-05
+| loss 0: 1.216e-03| val metric 0: 0.000499 | best val: 0.000499 at epoch 448 | current lr: 4.104e-05
+epoch: [449/500] | loss 0: 0.001213 | loss 1: 0.000000 | current lr: 3.950e-05
+| loss 0: 1.213e-03| val metric 0: 0.000498 | best val: 0.000498 at epoch 449 | current lr: 3.950e-05
+epoch: [450/500] | loss 0: 0.001210 | loss 1: 0.000000 | current lr: 3.799e-05
+| loss 0: 1.210e-03| val metric 0: 0.000497 | best val: 0.000497 at epoch 450 | current lr: 3.799e-05
+epoch: [451/500] | loss 0: 0.001207 | loss 1: 0.000000 | current lr: 3.650e-05
+| loss 0: 1.207e-03| val metric 0: 0.000495 | best val: 0.000495 at epoch 451 | current lr: 3.650e-05
+epoch: [452/500] | loss 0: 0.001203 | loss 1: 0.000000 | current lr: 3.504e-05
+| loss 0: 1.203e-03| val metric 0: 0.000493 | best val: 0.000493 at epoch 452 | current lr: 3.504e-05
+epoch: [453/500] | loss 0: 0.001200 | loss 1: 0.000000 | current lr: 3.361e-05
+| loss 0: 1.200e-03| val metric 0: 0.000492 | best val: 0.000492 at epoch 453 | current lr: 3.361e-05
+epoch: [454/500] | loss 0: 0.001197 | loss 1: 0.000000 | current lr: 3.221e-05
+| loss 0: 1.197e-03| val metric 0: 0.000490 | best val: 0.000490 at epoch 454 | current lr: 3.221e-05
+epoch: [455/500] | loss 0: 0.001194 | loss 1: 0.000000 | current lr: 3.084e-05
+| loss 0: 1.194e-03| val metric 0: 0.000490 | best val: 0.000490 at epoch 455 | current lr: 3.084e-05
+epoch: [456/500] | loss 0: 0.001191 | loss 1: 0.000000 | current lr: 2.949e-05
+| loss 0: 1.191e-03| val metric 0: 0.000489 | best val: 0.000489 at epoch 456 | current lr: 2.949e-05
+epoch: [457/500] | loss 0: 0.001188 | loss 1: 0.000000 | current lr: 2.818e-05
+| loss 0: 1.188e-03| val metric 0: 0.000488 | best val: 0.000488 at epoch 457 | current lr: 2.818e-05
+epoch: [458/500] | loss 0: 0.001185 | loss 1: 0.000000 | current lr: 2.689e-05
+| loss 0: 1.185e-03| val metric 0: 0.000486 | best val: 0.000486 at epoch 458 | current lr: 2.689e-05
+epoch: [459/500] | loss 0: 0.001183 | loss 1: 0.000000 | current lr: 2.564e-05
+| loss 0: 1.183e-03| val metric 0: 0.000485 | best val: 0.000485 at epoch 459 | current lr: 2.564e-05
+epoch: [460/500] | loss 0: 0.001181 | loss 1: 0.000000 | current lr: 2.441e-05
+| loss 0: 1.181e-03| val metric 0: 0.000484 | best val: 0.000484 at epoch 460 | current lr: 2.441e-05
+epoch: [461/500] | loss 0: 0.001178 | loss 1: 0.000000 | current lr: 2.321e-05
+| loss 0: 1.178e-03| val metric 0: 0.000483 | best val: 0.000483 at epoch 461 | current lr: 2.321e-05
+epoch: [462/500] | loss 0: 0.001176 | loss 1: 0.000000 | current lr: 2.205e-05
+| loss 0: 1.176e-03| val metric 0: 0.000482 | best val: 0.000482 at epoch 462 | current lr: 2.205e-05
+epoch: [463/500] | loss 0: 0.001173 | loss 1: 0.000000 | current lr: 2.091e-05
+| loss 0: 1.173e-03| val metric 0: 0.000481 | best val: 0.000481 at epoch 463 | current lr: 2.091e-05
+epoch: [464/500] | loss 0: 0.001171 | loss 1: 0.000000 | current lr: 1.980e-05
+| loss 0: 1.171e-03| val metric 0: 0.000480 | best val: 0.000480 at epoch 464 | current lr: 1.980e-05
+epoch: [465/500] | loss 0: 0.001169 | loss 1: 0.000000 | current lr: 1.872e-05
+| loss 0: 1.169e-03| val metric 0: 0.000479 | best val: 0.000479 at epoch 465 | current lr: 1.872e-05
+epoch: [466/500] | loss 0: 0.001167 | loss 1: 0.000000 | current lr: 1.767e-05
+| loss 0: 1.167e-03| val metric 0: 0.000479 | best val: 0.000479 at epoch 466 | current lr: 1.767e-05
+epoch: [467/500] | loss 0: 0.001166 | loss 1: 0.000000 | current lr: 1.665e-05
+| loss 0: 1.166e-03| val metric 0: 0.000479 | best val: 0.000479 at epoch 467 | current lr: 1.665e-05
+epoch: [468/500] | loss 0: 0.001165 | loss 1: 0.000000 | current lr: 1.566e-05
+| loss 0: 1.165e-03| val metric 0: 0.000478 | best val: 0.000478 at epoch 468 | current lr: 1.566e-05
+epoch: [469/500] | loss 0: 0.001163 | loss 1: 0.000000 | current lr: 1.470e-05
+| loss 0: 1.163e-03| val metric 0: 0.000476 | best val: 0.000476 at epoch 469 | current lr: 1.470e-05
+epoch: [470/500] | loss 0: 0.001160 | loss 1: 0.000000 | current lr: 1.377e-05
+| loss 0: 1.160e-03| val metric 0: 0.000476 | best val: 0.000476 at epoch 470 | current lr: 1.377e-05
+epoch: [471/500] | loss 0: 0.001158 | loss 1: 0.000000 | current lr: 1.287e-05
+| loss 0: 1.158e-03| val metric 0: 0.000475 | best val: 0.000475 at epoch 471 | current lr: 1.287e-05
+epoch: [472/500] | loss 0: 0.001157 | loss 1: 0.000000 | current lr: 1.200e-05
+| loss 0: 1.157e-03| val metric 0: 0.000475 | best val: 0.000475 at epoch 472 | current lr: 1.200e-05
+epoch: [473/500] | loss 0: 0.001155 | loss 1: 0.000000 | current lr: 1.116e-05
+| loss 0: 1.155e-03| val metric 0: 0.000474 | best val: 0.000474 at epoch 473 | current lr: 1.116e-05
+epoch: [474/500] | loss 0: 0.001154 | loss 1: 0.000000 | current lr: 1.035e-05
+| loss 0: 1.154e-03| val metric 0: 0.000474 | best val: 0.000474 at epoch 474 | current lr: 1.035e-05
+epoch: [475/500] | loss 0: 0.001153 | loss 1: 0.000000 | current lr: 9.569e-06
+| loss 0: 1.153e-03| val metric 0: 0.000473 | best val: 0.000473 at epoch 475 | current lr: 9.569e-06
+epoch: [476/500] | loss 0: 0.001152 | loss 1: 0.000000 | current lr: 8.820e-06
+| loss 0: 1.152e-03| val metric 0: 0.000473 | best val: 0.000473 at epoch 476 | current lr: 8.820e-06
+epoch: [477/500] | loss 0: 0.001151 | loss 1: 0.000000 | current lr: 8.100e-06
+| loss 0: 1.151e-03| val metric 0: 0.000473 | best val: 0.000473 at epoch 477 | current lr: 8.100e-06
+epoch: [478/500] | loss 0: 0.001151 | loss 1: 0.000000 | current lr: 7.412e-06
+| loss 0: 1.151e-03| val metric 0: 0.000472 | best val: 0.000472 at epoch 478 | current lr: 7.412e-06
+epoch: [479/500] | loss 0: 0.001151 | loss 1: 0.000000 | current lr: 6.753e-06
+| loss 0: 1.151e-03| val metric 0: 0.000472 | best val: 0.000472 at epoch 479 | current lr: 6.753e-06
+epoch: [480/500] | loss 0: 0.001150 | loss 1: 0.000000 | current lr: 6.125e-06
+| loss 0: 1.150e-03| val metric 0: 0.000472 | best val: 0.000472 at epoch 480 | current lr: 6.125e-06
+epoch: [481/500] | loss 0: 0.001150 | loss 1: 0.000000 | current lr: 5.528e-06
+| loss 0: 1.150e-03| val metric 0: 0.000472 | best val: 0.000472 at epoch 480 | current lr: 5.528e-06
+epoch: [482/500] | loss 0: 0.001149 | loss 1: 0.000000 | current lr: 4.961e-06
+| loss 0: 1.149e-03| val metric 0: 0.000473 | best val: 0.000472 at epoch 480 | current lr: 4.961e-06
+epoch: [483/500] | loss 0: 0.001148 | loss 1: 0.000000 | current lr: 4.424e-06
+| loss 0: 1.148e-03| val metric 0: 0.000472 | best val: 0.000472 at epoch 480 | current lr: 4.424e-06
+epoch: [484/500] | loss 0: 0.001147 | loss 1: 0.000000 | current lr: 3.918e-06
+| loss 0: 1.147e-03| val metric 0: 0.000471 | best val: 0.000471 at epoch 484 | current lr: 3.918e-06
+epoch: [485/500] | loss 0: 0.001146 | loss 1: 0.000000 | current lr: 3.443e-06
+| loss 0: 1.146e-03| val metric 0: 0.000471 | best val: 0.000471 at epoch 485 | current lr: 3.443e-06
+epoch: [486/500] | loss 0: 0.001145 | loss 1: 0.000000 | current lr: 2.998e-06
+| loss 0: 1.145e-03| val metric 0: 0.000471 | best val: 0.000471 at epoch 485 | current lr: 2.998e-06
+epoch: [487/500] | loss 0: 0.001145 | loss 1: 0.000000 | current lr: 2.584e-06
+| loss 0: 1.145e-03| val metric 0: 0.000471 | best val: 0.000471 at epoch 487 | current lr: 2.584e-06
+epoch: [488/500] | loss 0: 0.001145 | loss 1: 0.000000 | current lr: 2.201e-06
+| loss 0: 1.145e-03| val metric 0: 0.000471 | best val: 0.000471 at epoch 488 | current lr: 2.201e-06
+epoch: [489/500] | loss 0: 0.001145 | loss 1: 0.000000 | current lr: 1.848e-06
+| loss 0: 1.145e-03| val metric 0: 0.000471 | best val: 0.000471 at epoch 489 | current lr: 1.848e-06
+epoch: [490/500] | loss 0: 0.001145 | loss 1: 0.000000 | current lr: 1.526e-06
+| loss 0: 1.145e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 490 | current lr: 1.526e-06
+epoch: [491/500] | loss 0: 0.001145 | loss 1: 0.000000 | current lr: 1.235e-06
+| loss 0: 1.145e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 491 | current lr: 1.235e-06
+epoch: [492/500] | loss 0: 0.001145 | loss 1: 0.000000 | current lr: 9.744e-07
+| loss 0: 1.145e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 491 | current lr: 9.744e-07
+epoch: [493/500] | loss 0: 0.001144 | loss 1: 0.000000 | current lr: 7.447e-07
+| loss 0: 1.144e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 493 | current lr: 7.447e-07
+epoch: [494/500] | loss 0: 0.001143 | loss 1: 0.000000 | current lr: 5.459e-07
+| loss 0: 1.143e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 494 | current lr: 5.459e-07
+epoch: [495/500] | loss 0: 0.001143 | loss 1: 0.000000 | current lr: 3.778e-07
+| loss 0: 1.143e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 494 | current lr: 3.778e-07
+epoch: [496/500] | loss 0: 0.001143 | loss 1: 0.000000 | current lr: 2.406e-07
+| loss 0: 1.143e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 496 | current lr: 2.406e-07
+epoch: [497/500] | loss 0: 0.001143 | loss 1: 0.000000 | current lr: 1.342e-07
+| loss 0: 1.143e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 497 | current lr: 1.342e-07
+epoch: [498/500] | loss 0: 0.001143 | loss 1: 0.000000 | current lr: 5.865e-08
+| loss 0: 1.143e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 498 | current lr: 5.865e-08
+epoch: [499/500] | loss 0: 0.001143 | loss 1: 0.000000 | current lr: 1.393e-08
+| loss 0: 1.143e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 499 | current lr: 1.393e-08
+epoch: [500/500] | loss 0: 0.001143 | loss 1: 0.000000 | current lr: 4.855e-11
+| loss 0: 1.143e-03| val metric 0: 0.000470 | best val: 0.000470 at epoch 499 | current lr: 4.855e-11
+Training takes 6066.41422700882 seconds.

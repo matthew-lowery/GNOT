@@ -209,6 +209,7 @@ def validate_epoch(model, metric_func, valid_loader, device):
 
 if __name__ == "__main__":
     args = get_args()
+    print(args)
     if not args.no_cuda and torch.cuda.is_available():
         device = torch.device('cuda:{}'.format(str(args.gpu)))
     else:
