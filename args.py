@@ -38,7 +38,7 @@ def get_args():
                         choices=['none', 'minmax', 'unit', 'quantile'],
                         help="whether normalize y")
 
-
+    parser.add_argument('--npoints', type=str, default='all')
     parser.add_argument('--epochs', type=int, default=500, metavar='N',
                         help='number of epochs to train (default: 100)')
     parser.add_argument('--optimizer', type=str, default='AdamW',choices=['Adam','AdamW'])
@@ -49,9 +49,9 @@ def get_args():
                         )
     parser.add_argument('--grad-clip', type=str, default=1000.0
                         )
-    parser.add_argument('--batch-size', type=int, default=4, metavar='bsz',
+    parser.add_argument('--batch-size', type=int, default=5, metavar='bsz',
                         help='input batch size for training (default: 8)')
-    parser.add_argument('--val-batch-size', type=int, default=8, metavar='bsz',
+    parser.add_argument('--val-batch-size', type=int, default=5, metavar='bsz',
                         help='input batch size for validation (default: 4)')
 
 

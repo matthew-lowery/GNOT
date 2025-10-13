@@ -27,11 +27,12 @@ $pycmd
 EOF
 }
 
-for nl in 5; do
-for ne in 64; do
+dataset='flow_cylinder_shedding_2d'
+for nl in 3; do
+for ne in 32; do
 for at in linear; do
-for seed in 1 2 3 4; do
-sp "python3 -u train.py --gpu 0 --attn-type=$at --use-normalizer unit  --normalize_x unit --component all --comment rel2  --loss-name rel2 --epochs 10000 --batch-size 100 --model-name GNOT --optimizer AdamW --weight-decay 0.00005   --lr 0.001 --lr-method cycle  --grad-clip 1000.0 --seed=$seed  --n-hidden=$ne --dataset=tri2d --n-layers=$nl  --use-tb 0  # 2>&1 & sleep 20s"
+for seed in 1; do
+sp "python3 -u train.py --npoints=1000 --attn-type=$at --use-normalizer unit --normalize_x unit --epochs 10000 --batch-size 100 --optimizer AdamW --seed=$seed --n-hidden=$ne --dataset=$dataset --n-layers=$nl"
 done
 done
 done

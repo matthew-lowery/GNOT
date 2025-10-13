@@ -31,16 +31,16 @@ from models.mmgpt import GNOT
 
 
 def get_dataset(args):
-
+    
     dataset = args.dataset.removesuffix("_2d")
-    if args.npoints == '': 
-        train_path = f'./data/{dataset}__all_train.pkl'
+    if args.npoints == 'all': 
+        train_path = f'./data/{dataset}_train.pkl'
     else: 
-        train_path = f'./data/{dataset}__{args.npoints}_train.pkl'
+        train_path = f'./data/{dataset}_{args.npoints}_train.pkl'
+    
+    test_path = f'./data/{dataset}_test.pkl'
 
-    test_path = f'./data/{dataset}__all_test.pkl'
-
-
+    print(test_path)
     args.train_num = int(args.train_num) if args.train_num not in ['all', 'none'] else args.train_num
     args.test_num = int(args.test_num) if args.test_num not in ['all', 'none'] else args.test_num
 
