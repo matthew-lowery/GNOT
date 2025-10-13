@@ -27,11 +27,14 @@ $pycmd
 EOF
 }
 
-for nl in 5; do
+for dataset in 
+for nl in 2 3 4 5; do
+sp "python -u train.py --gpu 0 --attn-type=$at --use-normalizer unit  --normalize_x unit --component all --comment rel2  --loss-name rel2 --epochs 1000 --val-batch-size 100 --batch-size 100 --model-name GNOT --optimizer AdamW --weight-decay 0.00005   --lr 0.001 --lr-method cycle  --grad-clip 1000.0 --seed=$seed  --n-hidden=$ne --dataset=diffr3d --n-layers=$nl  --use-tb 0  # 2>&1 & sleep 20s"
+done
 for ne in 64; do
 for at in linear; do
 for seed in 1 2 3 4; do
-sp "python -u train.py --gpu 0 --attn-type=$at --use-normalizer unit  --normalize_x unit --component all --comment rel2  --loss-name rel2 --epochs 10000 --val-batch-size 100 --batch-size 100 --model-name GNOT --optimizer AdamW --weight-decay 0.00005   --lr 0.001 --lr-method cycle  --grad-clip 1000.0 --seed=$seed  --n-hidden=$ne --dataset=diffr3d --n-layers=$nl  --use-tb 0  # 2>&1 & sleep 20s"
+
 done
 done
 done

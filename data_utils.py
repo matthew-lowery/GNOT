@@ -31,24 +31,15 @@ from models.mmgpt import GNOT
 
 
 def get_dataset(args):
-    # if args.dataset == "ns2d":
-    #     train_path = './data/ns2d_1100_train.pkl'
-    #     test_path = './data/ns2d_1100_test.pkl'
-    # elif args.dataset == "inductor2d":
-    #     train_path = "./data/inductor2d_1100_train.pkl"
-    #     test_path = "./data/inductor2d_1100_test.pkl"
 
-    # elif args.dataset == "heat2d":
-    #     train_path = "./data/heat2d_1100_train.pkl"
-    #     test_path = "./data/heat2d_1100_test.pkl"
-    if args.dataset == 'diffr3d':
-        train_path = "./data/diffr_gnot_train.pkl"
-        test_path = "./data/diffr_gnot_test.pkl"
-    elif args.dataset == 'tri2d':
-        train_path = "./data/darcy_triangle_gnot_train.pkl"
-        test_path = "./data/darcy_triangle_gnot_test.pkl"
-    else:
-        raise NotImplementedError
+    dataset = args.dataset.removesuffix("_2d")
+    if args.npoints == '': 
+        train_path = f'./data/{dataset}__all_train.pkl'
+    else: 
+        train_path = f'./data/{dataset}__{args.npoints}_train.pkl'
+
+    test_path = f'./data/{dataset}__all_test.pkl'
+
 
     args.train_num = int(args.train_num) if args.train_num not in ['all', 'none'] else args.train_num
     args.test_num = int(args.test_num) if args.test_num not in ['all', 'none'] else args.test_num

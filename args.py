@@ -11,8 +11,8 @@ import argparse
 def get_args():
     parser = argparse.ArgumentParser(description='GNOT for operator learning')
     parser.add_argument('--dataset',type=str,
-                        default='diffr3d',
-                        choices = ['heat2d','ns2d','inductor2d','heatsink3d','ns2d_time','darcy2d','diffr3d', 'tri2d'])
+                        default='backward_facing_step_2d',
+                        choices = ["flow_cylinder_shedding_2d","flow_cylinder_laminar_2d", "taylor_green_numerical_2d", "taylor_green_exact_2d", "backward_facing_step_2d", "buoyancy_cavity_flow_2d", "lid_cavity_flow_2d", "merge_vortices_2d"])
 
 
     parser.add_argument('--component',type=str,
@@ -93,8 +93,6 @@ def get_args():
     parser.add_argument('--n-experts',type=int, default=1)
     parser.add_argument('--branch-sizes',nargs="*",type=int, default=[2])
     parser.add_argument('--n-inner',type=int, default=4)
-
-
 
     return parser.parse_args()
 
