@@ -12,7 +12,7 @@ import pickle
 import numpy as np
 import torch
 import torch.nn as nn
-
+import wandb
 
 from torch.optim.lr_scheduler import OneCycleLR, StepLR, LambdaLR
 # from torch.utils.tensorboard import SummaryWriter
@@ -45,7 +45,7 @@ def train(model, loss_func, metric_func,
               patience=10,
               grad_clip=0.999,
               start_epoch: int = 0,
-              print_freq: int = 20,
+              print_freq: int = 5,
               model_save_path='./data/checkpoints/',
               save_mode='state_dict',  # 'state_dict' or 'entire'
               model_name='model.pt',
@@ -100,8 +100,8 @@ def train(model, loss_func, metric_func,
 
         loss_train.append(_loss_mean)
         loss_epoch = []
-
         val_result = validate_epoch(model, metric_func, valid_loader, device)
+        wandb.log({'train_loss':_loss_mean, 'test_loss': val_result}, step=epoch)
 
         loss_val.append(val_result["metric"])
         val_metric = val_result["metric"].sum()
@@ -172,9 +172,10 @@ def train_batch(model, loss_func, data, optimizer, lr_scheduler, device, grad_cl
 
 
     out = model(g, u_p, g_u)
-
+    out = torch.linalg.norm(out, axis=-1)
 
     y_pred, y = out.squeeze(), g.ndata['y'].squeeze()
+    y = torch.linalg.norm(y, axis=-1)
     loss, reg,  _ = loss_func(g, y_pred, y)
     loss = loss + reg
     loss.backward()
@@ -188,6 +189,27 @@ def train_batch(model, loss_func, data, optimizer, lr_scheduler, device, grad_cl
 
     return (loss.item(), reg.item())
 
+
+def validate_epoch_save(model, metric_func, valid_loader, device):
+    model.eval()
+    metric_val = []
+    y_preds = []
+    for _, data in enumerate(valid_loader):
+        with torch.no_grad():
+            g, u_p, g_u = data
+            g, g_u, u_p = g.to(device), g_u.to(device), u_p.to(device)
+
+            out = model(g, u_p, g_u)
+
+            y_pred, y = out.squeeze(), g.ndata['y'].squeeze()
+            _, _, metric = metric_func(g, y_pred, y)
+
+            metric_val.append(metric)
+            
+    y_preds = torch.stack(y_preds).reshape(len(dataloader.dataset), -1, y_pred.shape[-1])
+    ### grid is first part of input? 
+    y_grid = g.ndata['x'][0].squeeze()
+    return y_preds, y_grid 
 
 
 def validate_epoch(model, metric_func, valid_loader, device):
@@ -210,6 +232,13 @@ def validate_epoch(model, metric_func, valid_loader, device):
 if __name__ == "__main__":
     args = get_args()
     print(args)
+    name = f"{args.dataset}_{args.seed}_{args.ntrain}_{args.npoints}"
+    if not args.wandb:
+        os.environ["WANDB_MODE"] = "disabled"
+    wandb.login(key='d612cda26a5690e196d092756d668fc2aee8525b')
+    wandb.init(project='ramansh-gnot', name=f'{name}')
+    wandb.config.update(args)
+
     if not args.no_cuda and torch.cuda.is_available():
         device = torch.device('cuda:{}'.format(str(args.gpu)))
     else:
@@ -225,8 +254,7 @@ if __name__ == "__main__":
     train_loader = MIODataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, drop_last=False)
     test_loader = MIODataLoader(test_dataset, batch_size=args.batch_size, shuffle=True, drop_last=False)
 
-    args.space_dim = int(re.search(r'\d', args.dataset).group())
-    print(args.space_dim)
+    print(f'{args.space_dim=}')
     args.normalizer =  train_dataset.y_normalizer.to(device) if train_dataset.y_normalizer is not None else None
 
     #### set random seeds
@@ -300,14 +328,34 @@ if __name__ == "__main__":
                        writer=writer,
                        device=device)
 
-    print('Training takes {} seconds.'.format(time.time() - time_start))
+    train_time = time.time() - time_start
+    print('Training takes {} seconds.'.format(train_time))
 
-    # result['args'], result['config'] = args, config
-    checkpoint = {'args':args, 'model':model.state_dict(),'optimizer':optimizer.state_dict()}
-    torch.save(checkpoint, os.path.join('./data/checkpoints/{}'.format(model_path)))
+    
+    if args.save:
+	model_fp = os.path.join(args.model_folder, name)
+        checkpoint = {'args':args, 'model':model.state_dict(),'optimizer':optimizer.state_dict()}
+        torch.save(checkpoint, model_fp)
+        os.makedirs(args.model_folder, exist_ok=True)
+	print(f'model saved to {model_folder}') 
+
     model.eval()
+    time_start_eval = time.time()
     val_metric = validate_epoch(model, metric_func, test_loader, device)
+
+    eval_time = time.time() - time_start
+    wandb.log({'eval_time': eval_time, 'train_time':train_time, step=100)
+
+    print('eval takes {} seconds.'.format(eval_time))
+
     print(f"\nBest model's validation metric in this run: {val_metric}")
+
+    ## Get output functions from model for later divergence calc 
+    if args.calc_div:
+        y_preds, y_grid = validate_epoch_save(model, metric_func, test_loader, device) 
+        os.makedirs(args.div_folder, exist_ok=True)
+        scipy.io.savemat(os.path.join(args.div_folder, f'{name}.mat'), {'x_grid': y_grid.cpu().numpy().astype(np.float64),
+                                                               'y_preds_test': y_preds.cpu().numpy().astype(np.float64)})
 
 
 

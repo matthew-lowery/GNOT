@@ -5,19 +5,20 @@ import argparse
 
 
 
-
-
-
 def get_args():
     parser = argparse.ArgumentParser(description='GNOT for operator learning')
     parser.add_argument('--dataset',type=str,
-                        default='backward_facing_step_2d',
-                        choices = ["flow_cylinder_shedding_2d","flow_cylinder_laminar_2d", "taylor_green_numerical_2d", "taylor_green_exact_2d", "backward_facing_step_2d", "buoyancy_cavity_flow_2d", "lid_cavity_flow_2d", "merge_vortices_2d"])
-
-
+                        default='backward_facing_step',
+                        choices = ["flow_cylinder_shedding","flow_cylinder_laminar", "taylor_green_numerical", "taylor_green_exact", "backward_facing_step", "buoyancy_cavity_flow", "lid_cavity_flow", "merge_vortices", "merge_vortices_easier", "species_transport", "taylor_green_temporal"])
+    
+    ### try not to touch other stuff 
+    parser.add_argument('--div-folder', type=str, default='/projects/bfel/mlowery/gnot_divs/')
+    parser.add_argument('--model-folder', type=str, default='/projects/bfel/mlowery/gnot_models/')
+    parser.add_argument('--save', action='store_true')
+    parser.add_argument('--calc-div', action='store_true')
     parser.add_argument('--component',type=str,
                         default='all',)
-
+    parser.add_argument('--space-dim', type=int, default=2)
 
 
     parser.add_argument('--seed', type=int, default=2023, metavar='Seed',
