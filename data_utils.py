@@ -27,11 +27,46 @@ from torch.nn.utils.rnn import pad_sequence
 from utils import TorchQuantileTransformer, UnitTransformer, PointWiseUnitTransformer, MultipleTensors
 from models.cgpt import CGPTNO
 from models.mmgpt import GNOT
+from manifold_dataset import build_manifold_datasets, is_manifold_dataset
 
 
 
 def get_dataset(args):
-    
+    manifold_dataset_name = os.environ.get("GNOT_MANIFOLD_DATASET")
+    if manifold_dataset_name:
+        args.dataset = manifold_dataset_name
+
+    args.train_num = int(args.train_num) if args.train_num not in ['all', 'none'] else args.train_num
+    args.test_num = int(args.test_num) if args.test_num not in ['all', 'none'] else args.test_num
+
+    if is_manifold_dataset(args.dataset):
+        train_data, test_data = build_manifold_datasets(args)
+        train_dataset = MIODataset(
+            data_path=None,
+            data_list=train_data,
+            name=args.dataset,
+            train=True,
+            train_num=args.train_num,
+            sort_data=args.sort_data,
+            normalize_y=args.use_normalizer,
+            normalize_x=args.normalize_x,
+        )
+        test_dataset = MIODataset(
+            data_path=None,
+            data_list=test_data,
+            name=args.dataset,
+            train=False,
+            test_num=args.test_num,
+            sort_data=args.sort_data,
+            normalize_y=args.use_normalizer,
+            normalize_x=args.normalize_x,
+            y_normalizer=train_dataset.y_normalizer,
+            x_normalizer=train_dataset.x_normalizer,
+            up_normalizer=train_dataset.up_normalizer,
+        )
+        args.dataset_config = train_dataset.config
+        return train_dataset, test_dataset
+
     dataset = args.dataset.removesuffix("_2d")
     if args.npoints == 'all': 
         train_path = f'./data/{dataset}_train.pkl'
@@ -41,8 +76,6 @@ def get_dataset(args):
     test_path = f'./data/{dataset}_test.pkl'
 
     print(test_path)
-    args.train_num = int(args.train_num) if args.train_num not in ['all', 'none'] else args.train_num
-    args.test_num = int(args.test_num) if args.test_num not in ['all', 'none'] else args.test_num
 
     train_dataset = MIODataset(train_path, name=args.dataset, train=True, train_num=args.train_num,
                                sort_data=args.sort_data,
@@ -247,10 +280,10 @@ def collate_op(items):
     [X, Y, theta, (f1, f2, ...)], input functions could be None
 '''
 class MIODataset(DGLDataset):
-    def __init__(self, data_path, name=' ', train=True, test=False, train_num=None, test_num=None, use_cache=True,normalize_y=False, y_normalizer=None, x_normalizer=None, up_normalizer=None, normalize_x=False,sort_data=False):
+    def __init__(self, data_path, name=' ', train=True, test=False, train_num=None, test_num=None, use_cache=True,normalize_y=False, y_normalizer=None, x_normalizer=None, up_normalizer=None, normalize_x=False,sort_data=False, data_list=None):
 
         self.data_path = data_path
-        self.cached_path = self.data_path[:-4] + '_' + 'train' + '_cached' +self.data_path[-4:] if train else  self.data_path[:-4] + '_' + 'test' + '_cached' +self.data_path[-4:]
+        self.cached_path = None if self.data_path is None else (self.data_path[:-4] + '_' + 'train' + '_cached' +self.data_path[-4:] if train else  self.data_path[:-4] + '_' + 'test' + '_cached' +self.data_path[-4:])
         self.use_cache = use_cache
         self.normalize_y = normalize_y
         self.normalize_x = normalize_x
@@ -262,7 +295,9 @@ class MIODataset(DGLDataset):
 
         ####  debug timing
         time0 = time.time()
-        if not os.path.exists(self.cached_path):
+        if data_list is not None:
+            self.data_list = data_list
+        elif not os.path.exists(self.cached_path):
             data_all = pickle.load(open(self.data_path, "rb"))
             print('Load dataset finished {}'.format(time.time()-time0))
             #### initialize dataset
@@ -725,4 +760,3 @@ class WeightedLpLoss(_WeightedLoss):
 #
 #     def __getitem__(self, idx):
 #         return self.graphs[idx], self.u_p[idx], self.graphs_u[idx]
-
