@@ -72,8 +72,9 @@ def get_dataset(args):
         train_path = f'./data/{dataset}_train.pkl'
     else: 
         train_path = f'./data/{dataset}_{args.npoints}_train.pkl'
-    
+        # train_path = './data/darcy_triangle_gnot_train.pkl'
     test_path = f'./data/{dataset}_test.pkl'
+    # test_path = './data/darcy_triangle_gnot_test.pkl'
 
     print(test_path)
 
