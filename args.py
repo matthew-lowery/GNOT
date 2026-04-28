@@ -6,10 +6,29 @@ import argparse
 
 
 def get_args():
+    dataset_choices = [
+        "flow_cylinder_shedding",
+        "flow_cylinder_laminar",
+        "taylor_green_numerical",
+        "taylor_green_exact",
+        "backward_facing_step",
+        "buoyancy_cavity_flow",
+        "lid_cavity_flow",
+        "merge_vortices",
+        "merge_vortices_easier",
+        "species_transport",
+        "taylor_green_temporal",
+        "poisson_sphere_3d",
+        "poisson_torus_3d",
+        "nlpoisson_sphere_3d",
+        "nlpoisson_torus_3d",
+        "ADRSHEAR_3d",
+        "adrshear_3d",
+    ]
     parser = argparse.ArgumentParser(description='GNOT for operator learning')
     parser.add_argument('--dataset',type=str,
                         default='backward_facing_step',
-                        choices = ["flow_cylinder_shedding","flow_cylinder_laminar", "taylor_green_numerical", "taylor_green_exact", "backward_facing_step", "buoyancy_cavity_flow", "lid_cavity_flow", "merge_vortices", "merge_vortices_easier", "species_transport", "taylor_green_temporal"])
+                        choices=dataset_choices)
     
     ### try not to touch other stuff 
     parser.add_argument('--div-folder', type=str, default='/projects/bfel/mlowery/gnot_divs/')
@@ -26,6 +45,7 @@ def get_args():
 
     parser.add_argument('--gpu', type=int, default=0, help='gpu id')
     parser.add_argument('--use-tb', type=int, default=0, help='whether use tensorboard')
+    parser.add_argument('--wandb', action='store_true')
     parser.add_argument('--comment',type=str,default="",help="comment for the experiment")
 
     parser.add_argument('--train-num', type=str, default='all')
@@ -48,7 +68,7 @@ def get_args():
                         help='max learning rate (default: 0.001)')
     parser.add_argument('--weight-decay',type=float,default=5e-6
                         )
-    parser.add_argument('--grad-clip', type=str, default=1000.0
+    parser.add_argument('--grad-clip', type=float, default=1000.0
                         )
     parser.add_argument('--batch-size', type=int, default=5, metavar='bsz',
                         help='input batch size for training (default: 8)')
@@ -96,4 +116,3 @@ def get_args():
     parser.add_argument('--n-inner',type=int, default=4)
 
     return parser.parse_args()
-

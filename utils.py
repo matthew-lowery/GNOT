@@ -4,12 +4,10 @@ import os
 import torch
 import numpy as np
 import operator
-import matplotlib.pyplot as plt
 import torch
 import numpy as np
 import torch.special as ts
 
-from scipy import interpolate
 from functools import reduce
 
 
@@ -93,6 +91,9 @@ def plot_heatmap(
     '''
     Plot heat map for a 3-dimension data
     '''
+    import matplotlib.pyplot as plt
+    from scipy import interpolate
+
     plt.cla()
     # plt.figure()
     xx = np.linspace(np.min(x), np.max(x))
@@ -492,6 +493,5 @@ def binterp1d(x, y, xnew, eps=1e-9):
     ynew =y_sel + slopes_sel * (xnew.unsqueeze(-1) - x_sel)
 
     return ynew
-
 
 

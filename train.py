@@ -10,12 +10,12 @@ import re
 import time
 import pickle
 import numpy as np
+import scipy.io
 import torch
 import torch.nn as nn
 import wandb
 
 from torch.optim.lr_scheduler import OneCycleLR, StepLR, LambdaLR
-# from torch.utils.tensorboard import SummaryWriter
 
 from args import get_args
 from data_utils import get_dataset, get_model, get_loss_func, collate_op, MIODataLoader
@@ -30,6 +30,21 @@ from models.optimizer import Adam, AdamW
 
 EPOCH_SCHEDULERS = ['ReduceLROnPlateau', 'StepLR', 'MultiplicativeLR',
                     'MultiStepLR', 'ExponentialLR', 'LambdaLR']
+
+
+def canonical_component(component):
+    return 'all-reduce' if component == 'reduce-all' else component
+
+
+def maybe_reduce_prediction_and_target(pred, target, component):
+    component = canonical_component(component)
+    if component == 'all-reduce':
+        pred = torch.linalg.norm(pred, dim=-1) if pred.ndim > 1 else pred
+        target = torch.linalg.norm(target, dim=-1) if target.ndim > 1 else target
+    else:
+        pred = pred.squeeze()
+        target = target.squeeze()
+    return pred, target
 
 
 
@@ -101,10 +116,11 @@ def train(model, loss_func, metric_func,
         loss_train.append(_loss_mean)
         loss_epoch = []
         val_result = validate_epoch(model, metric_func, valid_loader, device)
-        wandb.log({'train_loss':_loss_mean, 'test_loss': val_result}, step=epoch)
 
         loss_val.append(val_result["metric"])
         val_metric = val_result["metric"].sum()
+        train_scalar = float(np.mean(_loss_mean)) if np.ndim(_loss_mean) else float(_loss_mean)
+        wandb.log({'train_loss': train_scalar, 'test_loss': float(val_metric)}, step=epoch)
 
 
         if val_metric < best_val_metric:
@@ -170,12 +186,8 @@ def train_batch(model, loss_func, data, optimizer, lr_scheduler, device, grad_cl
 
     g, g_u, u_p = g.to(device), g_u.to(device), u_p.to(device)
 
-
     out = model(g, u_p, g_u)
-    out = torch.linalg.norm(out, axis=-1)
-
-    y_pred, y = out.squeeze(), g.ndata['y'].squeeze()
-    y = torch.linalg.norm(y, axis=-1)
+    y_pred, y = maybe_reduce_prediction_and_target(out, g.ndata['y'], loss_func.component)
     loss, reg,  _ = loss_func(g, y_pred, y)
     loss = loss + reg
     loss.backward()
@@ -192,24 +204,21 @@ def train_batch(model, loss_func, data, optimizer, lr_scheduler, device, grad_cl
 
 def validate_epoch_save(model, metric_func, valid_loader, device):
     model.eval()
-    metric_val = []
     y_preds = []
+    y_grid = None
     for _, data in enumerate(valid_loader):
         with torch.no_grad():
             g, u_p, g_u = data
             g, g_u, u_p = g.to(device), g_u.to(device), u_p.to(device)
 
             out = model(g, u_p, g_u)
+            sizes = [int(x) for x in g.batch_num_nodes().tolist()]
+            for pred in torch.split(out.detach().cpu(), sizes):
+                y_preds.append(pred if pred.ndim > 1 else pred.unsqueeze(-1))
+            if y_grid is None:
+                y_grid = g.ndata['x'][:sizes[0]].detach().cpu()
 
-            y_pred, y = out.squeeze(), g.ndata['y'].squeeze()
-            _, _, metric = metric_func(g, y_pred, y)
-
-            metric_val.append(metric)
-            
-    y_preds = torch.stack(y_preds).reshape(len(dataloader.dataset), -1, y_pred.shape[-1])
-    ### grid is first part of input? 
-    y_grid = g.ndata['x'][0].squeeze()
-    return y_preds, y_grid 
+    return torch.stack(y_preds), y_grid
 
 
 def validate_epoch(model, metric_func, valid_loader, device):
@@ -222,7 +231,7 @@ def validate_epoch(model, metric_func, valid_loader, device):
 
             out = model(g, u_p, g_u)
 
-            y_pred, y = out.squeeze(), g.ndata['y'].squeeze()
+            y_pred, y = maybe_reduce_prediction_and_target(out, g.ndata['y'], metric_func.component)
             _, _, metric = metric_func(g, y_pred, y)
 
             metric_val.append(metric)
@@ -231,8 +240,9 @@ def validate_epoch(model, metric_func, valid_loader, device):
 
 if __name__ == "__main__":
     args = get_args()
+    args.component = canonical_component(args.component)
     print(args)
-    name = f"{args.dataset}_{args.seed}_{args.ntrain}_{args.npoints}"
+    name = f"{args.dataset}_{args.seed}_{args.train_num}_{args.npoints}"
     if not args.wandb:
         os.environ["WANDB_MODE"] = "disabled"
     wandb.login(key='d612cda26a5690e196d092756d668fc2aee8525b')
@@ -252,7 +262,7 @@ if __name__ == "__main__":
     # test_dataset = get_dataset(args)
 
     train_loader = MIODataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, drop_last=False)
-    test_loader = MIODataLoader(test_dataset, batch_size=args.batch_size, shuffle=True, drop_last=False)
+    test_loader = MIODataLoader(test_dataset, batch_size=args.batch_size, shuffle=False, drop_last=False)
 
     print(f'{args.space_dim=}')
     args.normalizer =  train_dataset.y_normalizer.to(device) if train_dataset.y_normalizer is not None else None
@@ -275,16 +285,8 @@ if __name__ == "__main__":
     print(f"Saving model and result in ./../models/checkpoints/{model_path}\n")
 
 
-    if args.use_tb:
-        writer_path =  './data/logs/' + path_prefix
-        log_path = writer_path + '/params.txt'
-        writer = SummaryWriter(log_dir=writer_path)
-        fp = open(log_path, "w+")
-        sys.stdout = fp
-
-    else:
-        writer = None
-        log_path = None
+    writer = None
+    log_path = None
 
 
     # print(model)
@@ -333,18 +335,18 @@ if __name__ == "__main__":
 
     
     if args.save:
-	model_fp = os.path.join(args.model_folder, name)
+        os.makedirs(args.model_folder, exist_ok=True)
+        model_fp = os.path.join(args.model_folder, f'{name}.pt')
         checkpoint = {'args':args, 'model':model.state_dict(),'optimizer':optimizer.state_dict()}
         torch.save(checkpoint, model_fp)
-        os.makedirs(args.model_folder, exist_ok=True)
-	print(f'model saved to {model_folder}') 
+        print(f'model saved to {model_fp}')
 
     model.eval()
     time_start_eval = time.time()
     val_metric = validate_epoch(model, metric_func, test_loader, device)
 
-    eval_time = time.time() - time_start
-    wandb.log({'eval_time': eval_time, 'train_time':train_time, step=100)
+    eval_time = time.time() - time_start_eval
+    wandb.log({'eval_time': eval_time, 'train_time': train_time}, step=100)
 
     print('eval takes {} seconds.'.format(eval_time))
 
@@ -356,5 +358,4 @@ if __name__ == "__main__":
         os.makedirs(args.div_folder, exist_ok=True)
         scipy.io.savemat(os.path.join(args.div_folder, f'{name}.mat'), {'x_grid': y_grid.cpu().numpy().astype(np.float64),
                                                                'y_preds_test': y_preds.cpu().numpy().astype(np.float64)})
-
 

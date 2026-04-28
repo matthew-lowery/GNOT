@@ -10,7 +10,10 @@ import pickle
 import gc
 import dgl
 
-from sklearn.preprocessing import QuantileTransformer
+try:
+    from sklearn.preprocessing import QuantileTransformer
+except ImportError:
+    QuantileTransformer = None
 
 from dgl.data import DGLDataset
 from dgl.nn.pytorch import SumPooling, AvgPooling
@@ -28,6 +31,40 @@ from utils import TorchQuantileTransformer, UnitTransformer, PointWiseUnitTransf
 from models.cgpt import CGPTNO
 from models.mmgpt import GNOT
 from manifold_dataset import build_manifold_datasets, is_manifold_dataset
+
+
+def _reconstruct_jax_array_as_numpy(fun, args, arr_state, aval_state):
+    np_value = fun(*args)
+    np_value.__setstate__(arr_state)
+    return np_value
+
+
+class _JaxCompatUnpickler(pickle.Unpickler):
+    def find_class(self, module, name):
+        if module == "jax._src.array" and name == "_reconstruct_array":
+            return _reconstruct_jax_array_as_numpy
+        return super().find_class(module, name)
+
+
+def _load_pickle(path):
+    with open(path, "rb") as handle:
+        try:
+            return pickle.load(handle)
+        except ModuleNotFoundError as exc:
+            if exc.name != "jax":
+                raise
+
+    with open(path, "rb") as handle:
+        return _JaxCompatUnpickler(handle).load()
+
+
+def _is_empty_pickle_list(path):
+    if not os.path.exists(path) or os.path.getsize(path) == 0:
+        return True
+    if os.path.getsize(path) > 5:
+        return False
+    with open(path, "rb") as handle:
+        return pickle.load(handle) == []
 
 
 
@@ -64,6 +101,7 @@ def get_dataset(args):
             x_normalizer=train_dataset.x_normalizer,
             up_normalizer=train_dataset.up_normalizer,
         )
+        args.space_dim = 3
         args.dataset_config = train_dataset.config
         return train_dataset, test_dataset
 
@@ -78,6 +116,19 @@ def get_dataset(args):
 
     print(test_path)
 
+    if _is_empty_pickle_list(test_path):
+        test_path = train_path
+        if args.train_num == 'all' and args.test_num == 'all':
+            args.train_num = 'none'
+            args.test_num = 'none'
+        elif args.train_num == 'all' and args.test_num not in ['all', 'none']:
+            total = len(_load_pickle(train_path))
+            args.train_num = max(total - args.test_num, 0)
+        elif args.test_num == 'all' and args.train_num not in ['all', 'none']:
+            total = len(_load_pickle(train_path))
+            args.test_num = max(total - args.train_num, 0)
+        print(f'Using {train_path} for both train/test because {dataset}_test.pkl is empty.')
+
     train_dataset = MIODataset(train_path, name=args.dataset, train=True, train_num=args.train_num,
                                sort_data=args.sort_data,
                                normalize_y=args.use_normalizer,
@@ -89,6 +140,7 @@ def get_dataset(args):
                               x_normalizer=train_dataset.x_normalizer, up_normalizer=train_dataset.up_normalizer)
 
     args.dataset_config = train_dataset.config
+    args.space_dim = train_dataset.config['input_dim']
 
     return train_dataset, test_dataset
 
@@ -108,7 +160,7 @@ def get_model(args):
     #     raise NotImplementedError
 
     trunk_size, theta_size, branch_sizes, output_size = args.dataset_config['input_dim'], args.dataset_config['theta_dim'], args.dataset_config['branch_sizes'], args.dataset_config['output_dim']
-    output_size = args.dataset_config['output_dim'] if args.component in ['all', 'all-reduce'] else 1
+    output_size = args.dataset_config['output_dim'] if args.component in ['all', 'all-reduce', 'reduce-all'] else 1
 
 
     ### full batch training
@@ -299,11 +351,11 @@ class MIODataset(DGLDataset):
         if data_list is not None:
             self.data_list = data_list
         elif not os.path.exists(self.cached_path):
-            data_all = pickle.load(open(self.data_path, "rb"))
+            data_all = _load_pickle(self.data_path)
             print('Load dataset finished {}'.format(time.time()-time0))
             #### initialize dataset
             self.train = train
-            if ((train_num == 'none') and (test_num == 'none')):
+            if (train_num in [None, 'none']) and (test_num in [None, 'none']):
                 self.train_num = int(0.8 * len(data_all))
                 self.test_num = len(data_all) - self.train_num
             else:
@@ -313,7 +365,7 @@ class MIODataset(DGLDataset):
             if self.train:
                 if train_num == 'all':   # use all to train
                     self.train_num = len(data_all)
-                else:
+                elif train_num not in [None, 'none']:
                     train_num = int(train_num)
                     self.train_num = min(train_num, len(data_all))
                     if train_num > len(data_all):
@@ -324,7 +376,7 @@ class MIODataset(DGLDataset):
             else:
                 if test_num == "all":
                     self.test_num = len(data_all)
-                else:
+                elif test_num not in [None, 'none']:
                     test_num = int(test_num)
                     self.test_num = min(test_num, len(data_all))
                     if test_num > len(data_all):
@@ -408,6 +460,8 @@ class MIODataset(DGLDataset):
                 print(self.y_normalizer.max, self.y_normalizer.min)
 
             elif self.normalize_y == 'quantile':
+                if QuantileTransformer is None:
+                    raise ImportError("scikit-learn is required for quantile normalization.")
                 self.y_normalizer = QuantileTransformer(output_distribution='normal')
                 self.y_normalizer = self.y_normalizer.fit(y_feats_all)
                 self.y_normalizer = TorchQuantileTransformer(self.y_normalizer.output_distribution, self.y_normalizer.references_,self.y_normalizer.quantiles_)
@@ -528,7 +582,9 @@ class WeightedLpRelLoss(_WeightedLoss):
 
         self.d = d
         self.p = p
-        self.component = component if component == 'all' or 'all-reduce' else int(component)
+        self.component = 'all-reduce' if component == 'reduce-all' else component
+        if self.component not in ['all', 'all-reduce']:
+            self.component = int(self.component)
         self.regularizer = regularizer
         self.normalizer = normalizer
         self.sum_pool = SumPooling()
@@ -581,7 +637,9 @@ class WeightedLpLoss(_WeightedLoss):
 
         self.d = d
         self.p = p
-        self.component = component if component == 'all' else int(component)
+        self.component = 'all-reduce' if component == 'reduce-all' else component
+        if self.component not in ['all', 'all-reduce']:
+            self.component = int(self.component)
         self.regularizer = regularizer
         self.normalizer = normalizer
         self.avg_pool = AvgPooling()
@@ -590,6 +648,9 @@ class WeightedLpLoss(_WeightedLoss):
         if self.component == 'all':
             losses = self.avg_pool(g, ((pred - target).abs() ** self.p)) ** (1 / self.p)
             metrics = losses.mean(dim=0).clone().detach().cpu().numpy()
+        elif self.component == 'all-reduce':
+            losses = self.avg_pool(g, ((pred - target).abs() ** self.p)) ** (1 / self.p)
+            metrics = losses.mean().clone().detach().cpu().numpy()
 
         else:
             assert self.component <= target.shape[1]
